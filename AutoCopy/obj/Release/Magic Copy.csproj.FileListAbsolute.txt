@@ -1,0 +1,17 @@
+D:\C#\AutoCopy\AutoCopy\bin\Release\MagicCopy.exe.config
+D:\C#\AutoCopy\AutoCopy\bin\Release\MagicCopy.exe
+D:\C#\AutoCopy\AutoCopy\bin\Release\MagicCopy.pdb
+D:\C#\AutoCopy\AutoCopy\obj\Release\MagicCopy.Properties.Resources.resources
+D:\C#\AutoCopy\AutoCopy\obj\Release\Magic Copy.csproj.GenerateResource.Cache
+D:\C#\AutoCopy\AutoCopy\obj\Release\MagicCopy.exe
+D:\C#\AutoCopy\AutoCopy\obj\Release\MagicCopy.pdb
+D:\C#\AutoCopy\AutoCopy\obj\Release\Magic Copy.csprojResolveAssemblyReference.cache
+D:\C#\AutoCopy\AutoCopy\bin\Release\MagicCopy.exe.manifest
+D:\C#\AutoCopy\AutoCopy\bin\Release\MagicCopy.application
+D:\C#\AutoCopy\AutoCopy\obj\Release\MagicCopy.TrustInfo.xml
+D:\C#\AutoCopy\AutoCopy\obj\Release\MagicCopy.exe.manifest
+D:\C#\AutoCopy\AutoCopy\obj\Release\MagicCopy.application
+D:\C#\AutoCopy\AutoCopy\obj\Release\Magic Copy.csproj.CoreCompileInputs.cache
+D:\C#\AutoCopy\AutoCopy\obj\Release\MagicCopy.Magic_Copy.resources
+D:\C#\AutoCopy\AutoCopy\bin\Release\MagicCopy.exe.CodeAnalysisLog.xml
+D:\C#\AutoCopy\AutoCopy\bin\Release\MagicCopy.exe.lastcodeanalysissucceeded
