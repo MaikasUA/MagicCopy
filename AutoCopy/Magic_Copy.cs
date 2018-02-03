@@ -9,6 +9,7 @@ namespace MagicCopy
 {
     public partial class Magic_Copy : Form
     {
+        //Сложно вырубай!
         BackgroundWorker Worker;
         FileSystemWatcher Watcher;
         private string WaySave = @"TestSave.sav";
