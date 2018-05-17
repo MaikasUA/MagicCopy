@@ -1,0 +1,14 @@
+D:\C#\AutoCopy\AutoCopy\bin\x86\x32\MagicCopy.exe.config
+D:\C#\AutoCopy\AutoCopy\bin\x86\x32\MagicCopy.exe.manifest
+D:\C#\AutoCopy\AutoCopy\bin\x86\x32\MagicCopy.application
+D:\C#\AutoCopy\AutoCopy\bin\x86\x32\MagicCopy.exe
+D:\C#\AutoCopy\AutoCopy\bin\x86\x32\MagicCopy.pdb
+D:\C#\AutoCopy\AutoCopy\obj\x86\x32\MagicCopy.Magic_Copy.resources
+D:\C#\AutoCopy\AutoCopy\obj\x86\x32\MagicCopy.Properties.Resources.resources
+D:\C#\AutoCopy\AutoCopy\obj\x86\x32\Magic Copy.csproj.GenerateResource.cache
+D:\C#\AutoCopy\AutoCopy\obj\x86\x32\Magic Copy.csproj.CoreCompileInputs.cache
+D:\C#\AutoCopy\AutoCopy\obj\x86\x32\MagicCopy.TrustInfo.xml
+D:\C#\AutoCopy\AutoCopy\obj\x86\x32\MagicCopy.exe.manifest
+D:\C#\AutoCopy\AutoCopy\obj\x86\x32\MagicCopy.application
+D:\C#\AutoCopy\AutoCopy\obj\x86\x32\MagicCopy.exe
+D:\C#\AutoCopy\AutoCopy\obj\x86\x32\MagicCopy.pdb

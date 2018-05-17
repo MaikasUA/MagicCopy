@@ -120,22 +120,17 @@
   <metadata name="HelpShow.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
-  <metadata name="HelpShow.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
   <data name="AutoCheck.ToolTip" xml:space="preserve">
     <value>Automatic mode allows you to copy and delete files without user intervention
 ATTENTION! For correct operation, it is recommended to switch the program to the "Default" mode and select the "Delete All Original File"
 Disabled for errors in the source folder path!</value>
   </data>
   <data name="InfoRichTextBox.Text" xml:space="preserve">
-    <value>Version 2.0.0.3
-
-CAUTION! There may be errors! Including file loss!
+    <value>Version 3.0.0.0
 
 Create by Maikas 
 
-My Tumbler: https://www.tumblr.com/blog/maikasua
+My Tumbler: https://www.tumblr.com/blog/maikasua (All info there)
 
 I'm on Tabun: https://tabun.everypony.ru/profile/Maikas-Octavia
 

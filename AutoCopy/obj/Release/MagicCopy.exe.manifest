@@ -50,7 +50,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>wF6u74AaqrBKJnZ5vwmKa7JXl2zwWgSpPf9Q5aBo1Mo=</dsig:DigestValue>
+        <dsig:DigestValue>cOI/NfztNVSDmVRR1QrJ4aw53DGyXBwM+XJGSi9IrDM=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -63,13 +63,13 @@
       <dsig:DigestValue>qex6INmJbdNRV/pHWc7VeoygDnajBHtQAUVcfFr9DYY=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="MagicCopy.exe.config" size="1458">
+  <file name="MagicCopy.exe.config" size="1455">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>PVXLetpaXvZn1HRYrFGvIkXWArKmavoQD8R5XOKsIYk=</dsig:DigestValue>
+      <dsig:DigestValue>h41cJeq7I5nSjqZaRSghbNAanaRVd8+LcuzrbcWFk6s=</dsig:DigestValue>
     </hash>
   </file>
   <file name="twilight_sparkle_terminal_icon_by_daylightbrilliance_d3hbmm4_o2W_icon.ico" size="334883">

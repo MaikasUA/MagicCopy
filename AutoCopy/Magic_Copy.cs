@@ -9,7 +9,6 @@ namespace MagicCopy
 {
     public partial class Magic_Copy : Form
     {
-        //Сложно вырубай!
         BackgroundWorker Worker;
         FileSystemWatcher Watcher;
         private string WaySave = @"TestSave.sav";
@@ -19,13 +18,14 @@ namespace MagicCopy
         private string three_way = @"";
         private string four_way = @"";
         private string culling_way = @"";
+        private char NO = '-';
 
-        private string Key0 = ""; //Key word 1
-        private string Key1 = ""; //Key word 2
-        private string Key2 = ""; //Key word 3
-        private string Key3 = ""; //Key word 4
+        private string[] Key1 = new string[] { };
+        private string[] Key2 = new string[] { };
+        private string[] Key3 = new string[] { };
+        private string[] Key4 = new string[] { };
 
-        private string[] Key;
+        //private string[] Key;
         private string[] WAYS;
 
         private uint TotalFile = 0;
@@ -55,6 +55,7 @@ namespace MagicCopy
                 SynchronizingObject = this,
                 Filter = "*"
             };
+
             Watcher.Created += new FileSystemEventHandler(OnChanged);
 
             ModePanel.BackColor = Color.FromArgb(0, 0, 0, 0);
@@ -66,6 +67,8 @@ namespace MagicCopy
             try
             {
                 CheckingFileSave();
+                Watcher.Path = source_way;
+                Watcher.EnableRaisingEvents = true;
             }
             catch(Exception)
             {
@@ -80,8 +83,6 @@ namespace MagicCopy
                 Apply.Enabled = true;
                 //AutoCheck.Enabled = true;
                 source_way = NewSource_way.Text;
-                Watcher.Path = source_way;
-                Watcher.EnableRaisingEvents = true;
             }
             catch (ArgumentException)
             {
@@ -223,6 +224,7 @@ namespace MagicCopy
             }
             catch (Exception)
             {
+
             }
         }
 
@@ -230,10 +232,28 @@ namespace MagicCopy
         {
             EndScan = false;
             //What.Text = "";
-            Key0 = NewKey_One.Text;
-            Key1 = NewKey_Two.Text;
-            Key2 = NewKey_Three.Text;
-            Key3 = NewKey_Four.Text;
+            //Key0 = NewKey_One.Text;
+            Key1 = NewKey_One.Text.Split(',');
+            Key2 = NewKey_Two.Text.Split(',');
+            Key3 = NewKey_Three.Text.Split(',');
+            Key4 = NewKey_Four.Text.Split(',');
+            
+            for (int i = 0; i < Key1.Length; i++)
+            {
+                Key1[i] = Key1[i].Trim();
+            }
+            for (int i = 0; i < Key2.Length; i++)
+            {
+                Key2[i] = Key2[i].Trim();
+            }
+            for (int i = 0; i < Key3.Length; i++)
+            {
+                Key3[i] = Key3[i].Trim();
+            }
+            for (int i = 0; i < Key4.Length; i++)
+            {
+                Key4[i] = Key4[i].Trim();
+            }
 
             if (source_way != "") //Checking all way and key word on null and void
             {
@@ -245,13 +265,6 @@ namespace MagicCopy
                     four_way,
                 };
 
-                Key = new string[]
-                {
-                    Key0,
-                    Key1,
-                    Key2,
-                    Key3,
-                };
                 int i = 0;
                 for (; ;)
                 {
@@ -260,16 +273,28 @@ namespace MagicCopy
                         MessageBox.Show("All way or key word is empty!\nOr error way.");
                         break;
                     }
-                    if (WAYS[i] == "" || Key[i] == "")
+                    if (WAYS[i] == ""/* || Key[i] == ""*/)//Решить проблему ключевых слов
                     {
                         i++;
                     }
                     else
                     {
-                        Key0 = Key0.ToLower();
-                        Key1 = Key1.ToLower();
-                        Key2 = Key2.ToLower();
-                        Key3 = Key3.ToLower();
+                        for (int a = 0; a < Key1.Length; a++)
+                        {
+                            Key1[a] = Key1[a].ToLower();
+                        }
+                        for (int a = 0; a < Key2.Length; a++)
+                        {
+                            Key2[a] = Key2[a].ToLower();
+                        }
+                        for (int a = 0; a < Key3.Length; a++)
+                        {
+                            Key3[a] = Key3[a].ToLower();
+                        }
+                        for (int a = 0; a < Key4.Length; a++)
+                        {
+                            Key4[a] = Key4[a].ToLower();
+                        }
                         break;
                     }
                 }
@@ -282,6 +307,13 @@ namespace MagicCopy
                 WAY[2] = three_way;
                 WAY[3] = four_way;
             }
+            string[][] KEYWORDArry = new string[][]
+            {
+                Key1,
+                Key2,
+                Key3,
+                Key4            
+            };
 
             if (source_way.Length < 3) { MessageBox.Show("Error source way!"); return; }
 
@@ -317,7 +349,9 @@ namespace MagicCopy
                 MessageBox.Show("Error way!");
                 return;
             }
+
             byte[] KEYS = new byte[4];
+
             foreach (FileInfo file in Files)
             {
                 TotalFile++;
@@ -329,173 +363,237 @@ namespace MagicCopy
                 {
                     return;
                 }
+
                 string FN = file.Name.ToLower();
+                string FNnoBadSymbol = FN.Replace('+', ' ').Replace('_', ' ').Replace('-', ' ');
 
                 string[] KEY = new string[4];
-
-                int[] FNstring = new int[]
-                {
-                    FN.IndexOf(Key0),
-                    FN.IndexOf(Key1),
-                    FN.IndexOf(Key2),
-                    FN.IndexOf(Key3),
-                };
-
-                Key = new string[]
-                {
-                    Key0,
-                    Key1,
-                    Key2,
-                    Key3,
-                };
-
-                for (byte i = 0; i < FNstring.Length; i++)
-                {
-                    if (FNstring[i] != 1) { KEY[i] = Key[i]; }
-                }
 
                 try
                 {
                     Worker.ReportProgress(++Value, -1);
 
-                    if (Key0 != "" && FN.IndexOf(Key0) != -1 || KEYS[0] == 1) //Scanning files in the source folder for matches
+                    if (Key1.Length >= 0 && Key1[0] != "" || KEYS[0] == 1 || Key1[0] == "*") //Scanning files in the source folder for matches
                     {
-                        TotalCopyFile++;
-                        string sourceFile = Path.Combine(source_way, file.Name); //Reading the source path
-                        string destFile = Path.Combine(one_way, file.Name); //Set the path for copying a file
-                        File.Copy(sourceFile, destFile, true); //Copy file
-                        if (AnotherTestDefault.Checked)
+                        bool SUCCESS = true;
+                        for (int i = 0; i < Key1.Length; i++)
                         {
-                            KEYS[0] = 2;
-                            NewChecked(FN, KEYS, KEY);
+                            int IndexKey = Key1[i].IndexOf(NO);
+                            string KeyString = Key1[i].Remove(0, 1);
+
+                            bool HasMinus = IndexKey == 0 ? true : false;
+
+                            if (HasMinus && FNnoBadSymbol.IndexOf(KeyString) != -1)
+                            {
+                                SUCCESS = false;
+                                break;
+                            }
+
+                            if (FNnoBadSymbol.IndexOf(Key1[i]) == -1 && !HasMinus) { SUCCESS = false; break; }
                         }
-
-                        if (DeleteOriginalFile.Checked) { File.Delete(sourceFile); }
-
-                        if (Advanced.Checked) //Checking Advanced setting
+                        if (SUCCESS || Key1[0] == "*")
                         {
-                            if (DeleteOriginal1.Checked) { File.Delete(sourceFile); }
+                            string sourceFile = Path.Combine(source_way, file.Name); //Reading the source path
+                            string destFile = Path.Combine(one_way, file.Name); //Set the path for copying a file
+                            File.Copy(sourceFile, destFile, true); //Copy file
 
-                            if (AnotherTest1.Checked)
+                            TotalCopyFile++;
+
+                            if (AnotherTestDefault.Checked)
                             {
                                 KEYS[0] = 2;
                                 NewChecked(FN, KEYS, KEY);
                             }
+
+                            if (DeleteOriginalFile.Checked) { File.Delete(sourceFile); }
+
+                            if (Advanced.Checked) //Checking Advanced setting
+                            {
+                                if (DeleteOriginal1.Checked) { File.Delete(sourceFile); }
+
+                                if (AnotherTest1.Checked)
+                                {
+                                    KEYS[0] = 2;
+                                    NewChecked(FN, KEYS, KEY);
+                                }
+                            }
                         }
                     }
-                    if (Key1 != "" && FN.IndexOf(Key1) != -1 || KEYS[1] == 1) //Scanning files in the source folder for matches
+
+                    if (Key2.Length >= 0 && Key2[0] != "" || KEYS[1] == 1 || Key2[0] == "*") //Scanning files in the source folder for matches
                     {
-                        TotalCopyFile++;
-                        string sourceFile = Path.Combine(source_way, file.Name); //Reading the source path
-                        string destFile = Path.Combine(two_way, file.Name); //Set the path for copying a file
-
-                        File.Copy(sourceFile, destFile, true); //Copy file
-                        if (AnotherTestDefault.Checked)
+                        bool SUCCESS = true;
+                        for (int i = 0; i < Key2.Length; i++)
                         {
-                            KEYS[1] = 2;
-                            NewChecked(FN, KEYS, KEY);
+                            int IndexKey = Key2[i].IndexOf(NO);
+                            string KeyString = Key2[i].Remove(0, 1);
+
+                            bool HasMinus = IndexKey == 0 ? true : false;
+
+                            if (HasMinus && FNnoBadSymbol.IndexOf(KeyString) != -1)
+                            {
+                                SUCCESS = false;
+                                break;
+                            }
+
+                            if (FNnoBadSymbol.IndexOf(Key2[i]) == -1 && !HasMinus) { SUCCESS = false; break; }
                         }
-
-                        if (DeleteOriginalFile.Checked) { File.Delete(sourceFile); }
-
-                        if (Advanced.Checked) //Checking Advanced setting
+                        if (SUCCESS || Key2[0] == "*")
                         {
-                            if (DeleteOriginal2.Checked) { File.Delete(sourceFile); }
+                            string sourceFile = Path.Combine(source_way, file.Name); //Reading the source path
+                            string destFile = Path.Combine(two_way, file.Name); //Set the path for copying a file
+                            File.Copy(sourceFile, destFile, true); //Copy file
 
-                            if (AnotherTest2.Checked)
+                            TotalCopyFile++;
+
+                            if (AnotherTestDefault.Checked)
                             {
                                 KEYS[1] = 2;
                                 NewChecked(FN, KEYS, KEY);
                             }
+
+                            if (DeleteOriginalFile.Checked) { File.Delete(sourceFile); }
+
+                            if (Advanced.Checked) //Checking Advanced setting
+                            {
+                                if (DeleteOriginal1.Checked) { File.Delete(sourceFile); }
+
+                                if (AnotherTest1.Checked)
+                                {
+                                    KEYS[1] = 2;
+                                    NewChecked(FN, KEYS, KEY);
+                                }
+                            }
                         }
                     }
-                    if (Key2 != "" && FN.IndexOf(Key2) != -1 || KEYS[2] == 1) //Scanning files in the source folder for matches
+                    if (Key3.Length >= 0 && Key3[0] != "" || KEYS[2] == 1 || Key3[0] == "*") //Scanning files in the source folder for matches
                     {
-                        TotalCopyFile++;
-                        string sourceFile = Path.Combine(source_way, file.Name); //Reading the source path
-                        string destFile = Path.Combine(three_way, file.Name); //Set the path for copying a file
-                        File.Copy(sourceFile, destFile, true); //Copy file
-                        if (AnotherTestDefault.Checked)
+                        bool SUCCESS = true;
+                        for (int i = 0; i < Key3.Length; i++)
                         {
-                            KEYS[2] = 2;
-                            NewChecked(FN, KEYS, KEY);
+                            int IndexKey = Key3[i].IndexOf(NO);
+                            string KeyString = Key3[i].Remove(0, 1);
+
+                            bool HasMinus = IndexKey == 0 ? true : false;
+
+                            if (HasMinus && FNnoBadSymbol.IndexOf(KeyString) != -1)
+                            {
+                                SUCCESS = false;
+                                break;
+                            }
+
+                            if (FNnoBadSymbol.IndexOf(Key3[i]) == -1 && !HasMinus) { SUCCESS = false; break; }
                         }
-
-                        if (DeleteOriginalFile.Checked) { File.Delete(sourceFile); }
-
-                        if (Advanced.Checked) //Checking Advanced setting
+                        if (SUCCESS || Key3[0] == "*")
                         {
-                            if (DeleteOriginal3.Checked) { File.Delete(sourceFile); }
+                            string sourceFile = Path.Combine(source_way, file.Name); //Reading the source path
+                            string destFile = Path.Combine(three_way, file.Name); //Set the path for copying a file
+                            File.Copy(sourceFile, destFile, true); //Copy file
 
-                            if (AnotherTest3.Checked)
+                            TotalCopyFile++;
+
+                            if (AnotherTestDefault.Checked)
                             {
                                 KEYS[2] = 2;
                                 NewChecked(FN, KEYS, KEY);
                             }
+
+                            if (DeleteOriginalFile.Checked) { File.Delete(sourceFile); }
+
+                            if (Advanced.Checked) //Checking Advanced setting
+                            {
+                                if (DeleteOriginal1.Checked) { File.Delete(sourceFile); }
+
+                                if (AnotherTest1.Checked)
+                                {
+                                    KEYS[2] = 2;
+                                    NewChecked(FN, KEYS, KEY);
+                                }
+                            }
                         }
                     }
-                    if (Key3 != "" && FN.IndexOf(Key3) != -1 || KEYS[3] == 1) //Scanning files in the source folder for matches
+                    if (Key4.Length >= 0 && Key4[0] != "" || KEYS[3] == 1 || Key4[0] == "*") //Scanning files in the source folder for matches
                     {
-                        TotalCopyFile++;
-                        string sourceFile = Path.Combine(source_way, file.Name); //Reading the source path
-                        string destFile = Path.Combine(four_way, file.Name); //Set the path for copying a file
-                        File.Copy(sourceFile, destFile, true); //Copy file
-
-                        if (AnotherTestDefault.Checked)
+                        bool SUCCESS = true;
+                        for (int i = 0; i < Key4.Length; i++)
                         {
-                            KEYS[3] = 2;
-                            NewChecked(FN, KEYS, KEY);
+                            int IndexKey = Key4[i].IndexOf(NO);
+                            string KeyString = Key4[i].Remove(0, 1);
+
+                            bool HasMinus = IndexKey == 0 ? true : false;
+
+                            if (HasMinus && FNnoBadSymbol.IndexOf(KeyString) != -1)
+                            {
+                                SUCCESS = false;
+                                break;
+                            }
+
+                            if (FNnoBadSymbol.IndexOf(Key4[i]) == -1 && !HasMinus) { SUCCESS = false; break; }
                         }
-
-                        if (DeleteOriginalFile.Checked) { File.Delete(sourceFile); }
-
-                        if (Advanced.Checked) //Checking Advanced setting
+                        if (SUCCESS || Key4[0] == "*")
                         {
-                            if (DeleteOriginal4.Checked) { File.Delete(sourceFile); }
+                            string sourceFile = Path.Combine(source_way, file.Name); //Reading the source path
+                            string destFile = Path.Combine(four_way, file.Name); //Set the path for copying a file
+                            File.Copy(sourceFile, destFile, true); //Copy file
 
-                            if (AnotherTest4.Checked)
+                            TotalCopyFile++;
+
+                            if (AnotherTestDefault.Checked)
                             {
                                 KEYS[3] = 2;
                                 NewChecked(FN, KEYS, KEY);
                             }
-                        }
-                    }
-                    else if (cullingCheck.Checked && culling_way.Length > 3) //Culling
-                    {
-                        for (byte i = 0; i < FNstring.Length; i++)
-                        {
-                            if (FNstring[i] == -1)
+
+                            if (DeleteOriginalFile.Checked) { File.Delete(sourceFile); }
+
+                            if (Advanced.Checked) //Checking Advanced setting
                             {
-                                string sourceFile = Path.Combine(source_way, file.Name); //Reading the source path
-                                string destFile = Path.Combine(culling_way, file.Name); //Set the path for copying a file
-                                File.Copy(sourceFile, destFile, true); //Copy file
-                                TotalCullingFile++;
-                                if (DeleteCulling.Checked) { File.Delete(sourceFile); };
+                                if (DeleteOriginal1.Checked) { File.Delete(sourceFile); }
+
+                                if (AnotherTest1.Checked)
+                                {
+                                    KEYS[3] = 2;
+                                    NewChecked(FN, KEYS, KEY);
+                                }
                             }
-                            else
-                                i++;
                         }
                     }
-                    for (int i = 0; i < 4; i++)
-                    {
-                        if (KEYS[i] == 2 && Advanced.Checked)
-                        {
-                            string sourceFile = Path.Combine(source_way, file.Name);
+                    //else if (cullingCheck.Checked && culling_way.Length > 3) //Culling
+                    //{
+                    //    for (byte i = 0; i < FNstring.Length; i++)
+                    //    {
+                    //        if (FNstring[i] == -1)
+                    //        {
+                    //            string sourceFile = Path.Combine(source_way, file.Name); //Reading the source path
+                    //            string destFile = Path.Combine(culling_way, file.Name); //Set the path for copying a file
+                    //            File.Copy(sourceFile, destFile, true); //Copy file
+                    //            TotalCullingFile++;
+                    //            if (DeleteCulling.Checked) { File.Delete(sourceFile); };
+                    //        }
+                    //        else
+                    //            i++;
+                    //    }
+                    //}
+                    //for (int i = 0; i < 4; i++)
+                    //{
+                    //    if (KEYS[i] == 2 && Advanced.Checked)
+                    //    {
+                    //        string sourceFile = Path.Combine(source_way, file.Name);
 
-                            File.Delete(sourceFile);
-                        }
-                        if (KEYS[i] == 2 && Default.Checked && DeleteAfterTestDefault.Checked)
-                        {
-                            string sourceFile = Path.Combine(source_way, file.Name);
+                    //        File.Delete(sourceFile);
+                    //    }
+                    //    if (KEYS[i] == 2 && Default.Checked && DeleteAfterTestDefault.Checked)
+                    //    {
+                    //        string sourceFile = Path.Combine(source_way, file.Name);
 
-                            File.Delete(sourceFile);
-                            i = 4;
-                        }
-                    }
-                    KEYS[0] = 0;
-                    KEYS[1] = 0;
-                    KEYS[2] = 0;
-                    KEYS[3] = 0;
+                    //        File.Delete(sourceFile);
+                    //        i = 4;
+                    //    }
+                    //}
+                    //KEYS[0] = 0;
+                    //KEYS[1] = 0;
+                    //KEYS[2] = 0;
+                    //KEYS[3] = 0;
                 }
                 catch (Exception) //Catching errors
                 {
@@ -558,31 +656,38 @@ namespace MagicCopy
         {
             if (!Advanced.Checked) //Default Mod
             {
-                this.MaximumSize = new Size(778, 454);
+                this.MaximumSize = new Size(778, 420);
                 this.MinimumSize = MaximumSize;
+                this.ProgramMod.Location = new Point(12, 180);
                 this.Source.ClientSize = new Size(182, 20);
-                this.Source.Location = new Point(572, 36);
+                this.Source.Location = new Point(572, 20);
                 this.NewSource_way.ClientSize = new Size(551, 20);
+                this.NewSource_way.Location = new Point(11, 22);
                 this.AdvancedDeletePanel.Visible = false;
-                this.Language.Location = new Point(11, 145);
-                this.BTNinfo.Location = new Point(11, 220);
-                this.InfoRichTextBox.Location = new Point(200, 145);
+                this.Language.Location = new Point(11, 105);
+                //this.BTNinfo.Location = new Point(11, 230);
+                this.InfoRichTextBox.Location = new Point(200, 105);
                 this.ModePanel.Visible = false;
                 this.ModePanel2.Visible = false;
+                this.WayPanel.Location = new Point(11, 48);
+                this.ProgramMod.Location = new Point(12, 213);
             }
             else //Advanced Mod
             {
-                this.MaximumSize = new Size(994, 560);
+                this.MaximumSize = new Size(994, 520);
                 this.MinimumSize = MaximumSize;
                 this.Source.ClientSize = new Size(206, 20);
-                this.Source.Location = new Point(760, 34);
+                this.Source.Location = new Point(759, 20);
                 this.NewSource_way.ClientSize = new Size(738, 20);
+                this.NewSource_way.Location = new Point(11, 22);
                 this.AdvancedDeletePanel.Visible = true;
-                this.Language.Location = new Point(11, 246);
-                this.BTNinfo.Location = new Point(11, 324);
-                this.InfoRichTextBox.Location = new Point(200, 246);
+                this.Language.Location = new Point(12, 206);
+                //this.BTNinfo.Location = new Point(11, 284);
+                this.InfoRichTextBox.Location = new Point(199, 206);
                 this.ModePanel.Visible = true;
                 this.ModePanel2.Visible = true;
+                this.WayPanel.Location = new Point(11, 48);
+                //this.ProgramMod.Location = new Point(12, 313);
             }
         }
 
@@ -592,7 +697,7 @@ namespace MagicCopy
             Progress.Value = 0;
         }
 
-        private void Fasttranslation()
+        private void FastTranslation()
         {
             NewTwo_way.Cue = NewOne_way.Cue;
             NewThree_way.Cue = NewOne_way.Cue;
@@ -620,10 +725,6 @@ namespace MagicCopy
         private void English_CheckedChanged(object sender, EventArgs e) //English Localization
         {
             Advanced.Text = "Advanced";
-            One.Text = "Folder one";
-            Two.Text = "Folder two";
-            Three.Text = "Folder three";
-            Four.Text = "Folder four";
             DeleteOriginal1.Text = "Delete after copying";
             AnotherTest1.Text = "Another test";
             CopyOnce1.Text = "Copy once";
@@ -654,16 +755,12 @@ namespace MagicCopy
             NewCulling_way.Cue = "Way for culling";
             CullingFolder.Text = "Culling folder";
             cullingCheck.Text = "Use culling";
-            Fasttranslation();
+            FastTranslation();
         }
 
         private void Russian_CheckedChanged(object sender, EventArgs e) //Russian Localization
         {
             Advanced.Text = "Расширенные";
-            One.Text = "Первая папка";
-            Two.Text = "Вторая папка";
-            Three.Text = "Третья папка";
-            Four.Text = "Четвертая папка";
             DeleteOriginal1.Text = "Удалить после копирования";
             AnotherTest1.Text = "Повторная проверка";
             CopyOnce1.Text = "Одно копирование";
@@ -694,16 +791,12 @@ namespace MagicCopy
             NewCulling_way.Cue = "Путь для отбраковки";
             CullingFolder.Text = "Папка отбраковки";
             cullingCheck.Text = "Отбраковка";
-            Fasttranslation();
+            FastTranslation();
         }
 
         private void Ukrainian_CheckedChanged(object sender, EventArgs e) //Ukrainian Localization
         {
             Advanced.Text = "Розширені";
-            One.Text = "Перша папка";
-            Two.Text = "Друга папка";
-            Three.Text = "Третя папка";
-            Four.Text = "Четверта папка";
             DeleteOriginal1.Text = "Видалити після копіювання";
             AnotherTest1.Text = "Провторная перевірка";
             CopyOnce1.Text = "Одне копіювання";
@@ -734,7 +827,7 @@ namespace MagicCopy
             NewCulling_way.Cue = "Шлях для відбраковування";
             CullingFolder.Text = "Папка відбраковування";
             cullingCheck.Text = "Відбраковування";
-            Fasttranslation();
+            FastTranslation();
         }
 
         private void SaveSetting(object sender, EventArgs e)
@@ -747,7 +840,7 @@ namespace MagicCopy
             }
             catch(Exception)
             {
-
+                MessageBox.Show("Unexpected save error!");
             }
         }
 
@@ -992,6 +1085,18 @@ namespace MagicCopy
             {
                 Apply.Enabled = false;
             }
+        }
+
+        private void helpInfoToolStripMenuItem_Click(object sender, EventArgs e)//Сделать
+        {
+            if (English.Checked) { MessageBox.Show(""); }
+            if (Russian.Checked) { MessageBox.Show(""); }
+            else { MessageBox.Show(""); }
+        }
+
+        private void InfoRichTextBox_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

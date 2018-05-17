@@ -80,6 +80,10 @@
             this.BTNClear1 = new System.Windows.Forms.Button();
             this.BTNClear2 = new System.Windows.Forms.Button();
             this.Notifications = new System.Windows.Forms.CheckBox();
+            this.CullingFolder = new System.Windows.Forms.Button();
+            this.cullingCheck = new System.Windows.Forms.CheckBox();
+            this.DeleteCulling = new System.Windows.Forms.CheckBox();
+            this.NewCulling_way = new MagicCopy.CueTextBox();
             this.BTNinfo = new System.Windows.Forms.Button();
             this.InfoRichTextBox = new System.Windows.Forms.RichTextBox();
             this.FastMenu = new System.Windows.Forms.MenuStrip();
@@ -88,23 +92,21 @@
             this.loadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.resetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.panel5 = new System.Windows.Forms.Panel();
+            this.helpInfoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ProgramMod = new System.Windows.Forms.Panel();
             this.panel6 = new System.Windows.Forms.Panel();
             this.ModePanel = new System.Windows.Forms.Panel();
-            this.CullingFolder = new System.Windows.Forms.Button();
             this.ModePanel2 = new System.Windows.Forms.Panel();
-            this.cullingCheck = new System.Windows.Forms.CheckBox();
-            this.NewCulling_way = new MagicCopy.CueTextBox();
+            this.WayPanel = new System.Windows.Forms.Panel();
             this.NewKey_Four = new MagicCopy.CueTextBox();
             this.NewKey_Three = new MagicCopy.CueTextBox();
             this.NewKey_Two = new MagicCopy.CueTextBox();
             this.NewKey_One = new MagicCopy.CueTextBox();
-            this.NewFour_way = new MagicCopy.CueTextBox();
-            this.NewThree_way = new MagicCopy.CueTextBox();
-            this.NewTwo_way = new MagicCopy.CueTextBox();
-            this.NewSource_way = new MagicCopy.CueTextBox();
             this.NewOne_way = new MagicCopy.CueTextBox();
-            this.DeleteCulling = new System.Windows.Forms.CheckBox();
+            this.NewFour_way = new MagicCopy.CueTextBox();
+            this.NewTwo_way = new MagicCopy.CueTextBox();
+            this.NewThree_way = new MagicCopy.CueTextBox();
+            this.NewSource_way = new MagicCopy.CueTextBox();
             this.AdvancedDeletePanel.SuspendLayout();
             this.panel4.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -113,57 +115,61 @@
             this.DefaultPanel.SuspendLayout();
             this.Language.SuspendLayout();
             this.FastMenu.SuspendLayout();
-            this.panel5.SuspendLayout();
+            this.ProgramMod.SuspendLayout();
             this.panel6.SuspendLayout();
             this.ModePanel.SuspendLayout();
             this.ModePanel2.SuspendLayout();
+            this.WayPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // One
             // 
-            this.One.Location = new System.Drawing.Point(11, 89);
+            this.One.Location = new System.Drawing.Point(155, 0);
             this.One.Name = "One";
-            this.One.Size = new System.Drawing.Size(181, 23);
+            this.One.Size = new System.Drawing.Size(27, 23);
             this.One.TabIndex = 0;
-            this.One.Text = "Folder one";
+            this.One.Text = "...";
             this.One.UseVisualStyleBackColor = true;
             this.One.Click += new System.EventHandler(this.One_Click);
             // 
             // Two
             // 
-            this.Two.Location = new System.Drawing.Point(198, 89);
+            this.Two.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.Two.Location = new System.Drawing.Point(342, 0);
             this.Two.Name = "Two";
-            this.Two.Size = new System.Drawing.Size(181, 23);
+            this.Two.Size = new System.Drawing.Size(27, 23);
             this.Two.TabIndex = 1;
-            this.Two.Text = "Folder two";
+            this.Two.Text = "...";
             this.Two.UseVisualStyleBackColor = true;
             this.Two.Click += new System.EventHandler(this.Tow_Click);
             // 
             // Three
             // 
-            this.Three.Location = new System.Drawing.Point(385, 89);
+            this.Three.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.Three.Location = new System.Drawing.Point(529, 0);
             this.Three.Name = "Three";
-            this.Three.Size = new System.Drawing.Size(181, 23);
+            this.Three.Size = new System.Drawing.Size(27, 23);
             this.Three.TabIndex = 2;
-            this.Three.Text = "Folder three";
+            this.Three.Text = "...";
             this.Three.UseVisualStyleBackColor = true;
             this.Three.Click += new System.EventHandler(this.Three_Click);
             // 
             // Four
             // 
-            this.Four.Location = new System.Drawing.Point(572, 89);
+            this.Four.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.Four.Location = new System.Drawing.Point(715, 0);
             this.Four.Name = "Four";
-            this.Four.Size = new System.Drawing.Size(181, 23);
+            this.Four.Size = new System.Drawing.Size(27, 23);
             this.Four.TabIndex = 3;
-            this.Four.Text = "Folder four";
+            this.Four.Text = "...";
             this.Four.UseVisualStyleBackColor = true;
             this.Four.Click += new System.EventHandler(this.Four_Click);
             // 
             // Source
             // 
-            this.Source.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.Source.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.Source.AutoSize = true;
-            this.Source.Location = new System.Drawing.Point(759, 36);
+            this.Source.Location = new System.Drawing.Point(759, 20);
             this.Source.Name = "Source";
             this.Source.Size = new System.Drawing.Size(206, 23);
             this.Source.TabIndex = 4;
@@ -197,7 +203,7 @@
             // Progress
             // 
             this.Progress.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.Progress.Location = new System.Drawing.Point(0, 498);
+            this.Progress.Location = new System.Drawing.Point(0, 458);
             this.Progress.Name = "Progress";
             this.Progress.Size = new System.Drawing.Size(978, 23);
             this.Progress.TabIndex = 17;
@@ -241,6 +247,7 @@
             // 
             // AdvancedDeletePanel
             // 
+            this.AdvancedDeletePanel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.AdvancedDeletePanel.BackColor = System.Drawing.SystemColors.Window;
             this.AdvancedDeletePanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.AdvancedDeletePanel.Controls.Add(this.panel4);
@@ -248,7 +255,7 @@
             this.AdvancedDeletePanel.Controls.Add(this.panel2);
             this.AdvancedDeletePanel.Controls.Add(this.panel1);
             this.AdvancedDeletePanel.Enabled = false;
-            this.AdvancedDeletePanel.Location = new System.Drawing.Point(11, 144);
+            this.AdvancedDeletePanel.Location = new System.Drawing.Point(11, 104);
             this.AdvancedDeletePanel.MinimumSize = new System.Drawing.Size(742, 73);
             this.AdvancedDeletePanel.Name = "AdvancedDeletePanel";
             this.AdvancedDeletePanel.Size = new System.Drawing.Size(742, 96);
@@ -281,6 +288,7 @@
             // AnotherTest4
             // 
             this.AnotherTest4.AutoSize = true;
+            this.AnotherTest4.Enabled = false;
             this.AnotherTest4.Location = new System.Drawing.Point(3, 26);
             this.AnotherTest4.Name = "AnotherTest4";
             this.AnotherTest4.Size = new System.Drawing.Size(86, 17);
@@ -367,6 +375,7 @@
             // AnotherTest3
             // 
             this.AnotherTest3.AutoSize = true;
+            this.AnotherTest3.Enabled = false;
             this.AnotherTest3.Location = new System.Drawing.Point(3, 26);
             this.AnotherTest3.Name = "AnotherTest3";
             this.AnotherTest3.Size = new System.Drawing.Size(86, 17);
@@ -378,6 +387,7 @@
             // 
             // panel2
             // 
+            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.panel2.BackColor = System.Drawing.SystemColors.Window;
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panel2.Controls.Add(this.DeleteAfterTest2);
@@ -417,6 +427,7 @@
             // AnotherTest2
             // 
             this.AnotherTest2.AutoSize = true;
+            this.AnotherTest2.Enabled = false;
             this.AnotherTest2.Location = new System.Drawing.Point(3, 26);
             this.AnotherTest2.Name = "AnotherTest2";
             this.AnotherTest2.Size = new System.Drawing.Size(86, 17);
@@ -439,6 +450,7 @@
             // 
             // panel1
             // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.panel1.BackColor = System.Drawing.SystemColors.Window;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panel1.Controls.Add(this.DeleteAfterTest1);
@@ -478,6 +490,7 @@
             // AnotherTest1
             // 
             this.AnotherTest1.AutoSize = true;
+            this.AnotherTest1.Enabled = false;
             this.AnotherTest1.Location = new System.Drawing.Point(3, 26);
             this.AnotherTest1.Name = "AnotherTest1";
             this.AnotherTest1.Size = new System.Drawing.Size(86, 17);
@@ -518,7 +531,7 @@
             this.DefaultPanel.Controls.Add(this.CopyOnceDefault);
             this.DefaultPanel.Controls.Add(this.DeleteOriginalFile);
             this.DefaultPanel.Controls.Add(this.AnotherTestDefault);
-            this.DefaultPanel.Location = new System.Drawing.Point(12, 405);
+            this.DefaultPanel.Location = new System.Drawing.Point(12, 365);
             this.DefaultPanel.Name = "DefaultPanel";
             this.DefaultPanel.Size = new System.Drawing.Size(341, 91);
             this.DefaultPanel.TabIndex = 25;
@@ -527,7 +540,7 @@
             // 
             this.DeleteAfterTestDefault.AutoSize = true;
             this.DeleteAfterTestDefault.Enabled = false;
-            this.DeleteAfterTestDefault.Location = new System.Drawing.Point(175, 15);
+            this.DeleteAfterTestDefault.Location = new System.Drawing.Point(190, 15);
             this.DeleteAfterTestDefault.Name = "DeleteAfterTestDefault";
             this.DeleteAfterTestDefault.Size = new System.Drawing.Size(101, 17);
             this.DeleteAfterTestDefault.TabIndex = 28;
@@ -538,7 +551,7 @@
             // 
             this.CopyOnceDefault.AutoSize = true;
             this.CopyOnceDefault.Checked = true;
-            this.CopyOnceDefault.Location = new System.Drawing.Point(3, 55);
+            this.CopyOnceDefault.Location = new System.Drawing.Point(3, 34);
             this.CopyOnceDefault.Name = "CopyOnceDefault";
             this.CopyOnceDefault.Size = new System.Drawing.Size(159, 17);
             this.CopyOnceDefault.TabIndex = 27;
@@ -551,7 +564,7 @@
             // DeleteOriginalFile
             // 
             this.DeleteOriginalFile.AutoSize = true;
-            this.DeleteOriginalFile.Location = new System.Drawing.Point(3, 35);
+            this.DeleteOriginalFile.Location = new System.Drawing.Point(3, 14);
             this.DeleteOriginalFile.Name = "DeleteOriginalFile";
             this.DeleteOriginalFile.Size = new System.Drawing.Size(127, 17);
             this.DeleteOriginalFile.TabIndex = 26;
@@ -562,7 +575,8 @@
             // AnotherTestDefault
             // 
             this.AnotherTestDefault.AutoSize = true;
-            this.AnotherTestDefault.Location = new System.Drawing.Point(3, 15);
+            this.AnotherTestDefault.Enabled = false;
+            this.AnotherTestDefault.Location = new System.Drawing.Point(3, 57);
             this.AnotherTestDefault.Name = "AnotherTestDefault";
             this.AnotherTestDefault.Size = new System.Drawing.Size(86, 17);
             this.AnotherTestDefault.TabIndex = 25;
@@ -579,7 +593,7 @@
             this.Language.Controls.Add(this.Ukrainian);
             this.Language.Controls.Add(this.Russian);
             this.Language.Controls.Add(this.English);
-            this.Language.Location = new System.Drawing.Point(12, 246);
+            this.Language.Location = new System.Drawing.Point(12, 206);
             this.Language.Name = "Language";
             this.Language.Size = new System.Drawing.Size(181, 72);
             this.Language.TabIndex = 26;
@@ -664,7 +678,7 @@
             // 
             // Clone2
             // 
-            this.Clone2.Location = new System.Drawing.Point(2, 56);
+            this.Clone2.Location = new System.Drawing.Point(2, 29);
             this.Clone2.Name = "Clone2";
             this.Clone2.Size = new System.Drawing.Size(100, 20);
             this.Clone2.TabIndex = 35;
@@ -686,7 +700,7 @@
             // 
             // BTNClear2
             // 
-            this.BTNClear2.Location = new System.Drawing.Point(108, 56);
+            this.BTNClear2.Location = new System.Drawing.Point(108, 29);
             this.BTNClear2.Name = "BTNClear2";
             this.BTNClear2.Size = new System.Drawing.Size(100, 20);
             this.BTNClear2.TabIndex = 37;
@@ -709,10 +723,57 @@
             this.HelpShow.SetToolTip(this.Notifications, "ProgressBar is broken, this alternative notifies you when copying is complete");
             this.Notifications.UseVisualStyleBackColor = true;
             // 
+            // CullingFolder
+            // 
+            this.CullingFolder.Enabled = false;
+            this.CullingFolder.Location = new System.Drawing.Point(1, 31);
+            this.CullingFolder.Name = "CullingFolder";
+            this.CullingFolder.Size = new System.Drawing.Size(206, 23);
+            this.CullingFolder.TabIndex = 53;
+            this.CullingFolder.Text = "Culling folder";
+            this.HelpShow.SetToolTip(this.CullingFolder, "Folder for files not suitable for search criteria");
+            this.CullingFolder.UseVisualStyleBackColor = true;
+            this.CullingFolder.Click += new System.EventHandler(this.CullingFolder_Click);
+            // 
+            // cullingCheck
+            // 
+            this.cullingCheck.AutoSize = true;
+            this.cullingCheck.Location = new System.Drawing.Point(2, 60);
+            this.cullingCheck.Name = "cullingCheck";
+            this.cullingCheck.Size = new System.Drawing.Size(78, 17);
+            this.cullingCheck.TabIndex = 54;
+            this.cullingCheck.Text = "Use culling";
+            this.HelpShow.SetToolTip(this.cullingCheck, "Use folder for files not suitable for search criteria");
+            this.cullingCheck.UseVisualStyleBackColor = true;
+            this.cullingCheck.CheckedChanged += new System.EventHandler(this.CullingCheck_CheckedChanged);
+            // 
+            // DeleteCulling
+            // 
+            this.DeleteCulling.AutoSize = true;
+            this.DeleteCulling.Enabled = false;
+            this.DeleteCulling.Location = new System.Drawing.Point(2, 76);
+            this.DeleteCulling.Name = "DeleteCulling";
+            this.DeleteCulling.Size = new System.Drawing.Size(93, 17);
+            this.DeleteCulling.TabIndex = 55;
+            this.DeleteCulling.Text = "Delete original";
+            this.HelpShow.SetToolTip(this.DeleteCulling, "Delete the rejected files in the source folder");
+            this.DeleteCulling.UseVisualStyleBackColor = true;
+            // 
+            // NewCulling_way
+            // 
+            this.NewCulling_way.Cue = "Way for culling";
+            this.NewCulling_way.Enabled = false;
+            this.NewCulling_way.Location = new System.Drawing.Point(1, 5);
+            this.NewCulling_way.Name = "NewCulling_way";
+            this.NewCulling_way.Size = new System.Drawing.Size(206, 20);
+            this.NewCulling_way.TabIndex = 52;
+            this.HelpShow.SetToolTip(this.NewCulling_way, "Folder for files not suitable for search criteria");
+            this.NewCulling_way.TextChanged += new System.EventHandler(this.NewCulling_way_TextChanged);
+            // 
             // BTNinfo
             // 
             this.BTNinfo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.BTNinfo.Location = new System.Drawing.Point(11, 324);
+            this.BTNinfo.Location = new System.Drawing.Point(11, 284);
             this.BTNinfo.Name = "BTNinfo";
             this.BTNinfo.Size = new System.Drawing.Size(182, 23);
             this.BTNinfo.TabIndex = 32;
@@ -724,18 +785,20 @@
             // 
             this.InfoRichTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.InfoRichTextBox.BackColor = System.Drawing.SystemColors.Window;
-            this.InfoRichTextBox.Location = new System.Drawing.Point(199, 246);
+            this.InfoRichTextBox.Location = new System.Drawing.Point(199, 206);
             this.InfoRichTextBox.Name = "InfoRichTextBox";
             this.InfoRichTextBox.ReadOnly = true;
             this.InfoRichTextBox.Size = new System.Drawing.Size(555, 153);
             this.InfoRichTextBox.TabIndex = 33;
             this.InfoRichTextBox.Text = resources.GetString("InfoRichTextBox.Text");
             this.InfoRichTextBox.Visible = false;
+            this.InfoRichTextBox.TextChanged += new System.EventHandler(this.InfoRichTextBox_TextChanged);
             // 
             // FastMenu
             // 
             this.FastMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem});
+            this.fileToolStripMenuItem,
+            this.helpInfoToolStripMenuItem});
             this.FastMenu.Location = new System.Drawing.Point(0, 0);
             this.FastMenu.Name = "FastMenu";
             this.FastMenu.Size = new System.Drawing.Size(978, 24);
@@ -781,17 +844,26 @@
             this.closeToolStripMenuItem.Text = "Close";
             this.closeToolStripMenuItem.Click += new System.EventHandler(this.Close_Click);
             // 
-            // panel5
+            // helpInfoToolStripMenuItem
             // 
-            this.panel5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.panel5.BackColor = System.Drawing.SystemColors.Window;
-            this.panel5.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel5.Controls.Add(this.Advanced);
-            this.panel5.Controls.Add(this.Default);
-            this.panel5.Location = new System.Drawing.Point(12, 353);
-            this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(181, 46);
-            this.panel5.TabIndex = 40;
+            this.helpInfoToolStripMenuItem.Enabled = false;
+            this.helpInfoToolStripMenuItem.Name = "helpInfoToolStripMenuItem";
+            this.helpInfoToolStripMenuItem.Size = new System.Drawing.Size(68, 20);
+            this.helpInfoToolStripMenuItem.Text = "Help info";
+            this.helpInfoToolStripMenuItem.Visible = false;
+            this.helpInfoToolStripMenuItem.Click += new System.EventHandler(this.helpInfoToolStripMenuItem_Click);
+            // 
+            // ProgramMod
+            // 
+            this.ProgramMod.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.ProgramMod.BackColor = System.Drawing.SystemColors.Window;
+            this.ProgramMod.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.ProgramMod.Controls.Add(this.Advanced);
+            this.ProgramMod.Controls.Add(this.Default);
+            this.ProgramMod.Location = new System.Drawing.Point(12, 313);
+            this.ProgramMod.Name = "ProgramMod";
+            this.ProgramMod.Size = new System.Drawing.Size(181, 46);
+            this.ProgramMod.TabIndex = 40;
             // 
             // panel6
             // 
@@ -804,175 +876,151 @@
             this.panel6.Controls.Add(this.Stop);
             this.panel6.Controls.Add(this.AutoLoading);
             this.panel6.Controls.Add(this.AutoCheck);
-            this.panel6.Location = new System.Drawing.Point(677, 405);
+            this.panel6.Location = new System.Drawing.Point(677, 365);
             this.panel6.Name = "panel6";
             this.panel6.Size = new System.Drawing.Size(295, 91);
             this.panel6.TabIndex = 41;
             // 
             // ModePanel
             // 
+            this.ModePanel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.ModePanel.Controls.Add(this.BTNClear2);
             this.ModePanel.Controls.Add(this.BTNClear1);
             this.ModePanel.Controls.Add(this.Clone1);
             this.ModePanel.Controls.Add(this.Clone2);
-            this.ModePanel.Location = new System.Drawing.Point(757, 62);
+            this.ModePanel.Location = new System.Drawing.Point(757, 48);
             this.ModePanel.Name = "ModePanel";
-            this.ModePanel.Size = new System.Drawing.Size(214, 81);
+            this.ModePanel.Size = new System.Drawing.Size(214, 55);
             this.ModePanel.TabIndex = 42;
-            // 
-            // CullingFolder
-            // 
-            this.CullingFolder.Enabled = false;
-            this.CullingFolder.Location = new System.Drawing.Point(1, 31);
-            this.CullingFolder.Name = "CullingFolder";
-            this.CullingFolder.Size = new System.Drawing.Size(206, 23);
-            this.CullingFolder.TabIndex = 53;
-            this.CullingFolder.Text = "Culling folder";
-            this.HelpShow.SetToolTip(this.CullingFolder, "Folder for files not suitable for search criteria");
-            this.CullingFolder.UseVisualStyleBackColor = true;
-            this.CullingFolder.Click += new System.EventHandler(this.CullingFolder_Click);
             // 
             // ModePanel2
             // 
+            this.ModePanel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.ModePanel2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.ModePanel2.Controls.Add(this.DeleteCulling);
             this.ModePanel2.Controls.Add(this.cullingCheck);
             this.ModePanel2.Controls.Add(this.NewCulling_way);
             this.ModePanel2.Controls.Add(this.CullingFolder);
-            this.ModePanel2.Location = new System.Drawing.Point(759, 145);
+            this.ModePanel2.Enabled = false;
+            this.ModePanel2.Location = new System.Drawing.Point(759, 105);
             this.ModePanel2.Name = "ModePanel2";
             this.ModePanel2.Size = new System.Drawing.Size(209, 96);
             this.ModePanel2.TabIndex = 54;
-            this.ModePanel2.Visible = false;
             // 
-            // cullingCheck
+            // WayPanel
             // 
-            this.cullingCheck.AutoSize = true;
-            this.cullingCheck.Location = new System.Drawing.Point(2, 60);
-            this.cullingCheck.Name = "cullingCheck";
-            this.cullingCheck.Size = new System.Drawing.Size(78, 17);
-            this.cullingCheck.TabIndex = 54;
-            this.cullingCheck.Text = "Use culling";
-            this.HelpShow.SetToolTip(this.cullingCheck, "Use folder for files not suitable for search criteria");
-            this.cullingCheck.UseVisualStyleBackColor = true;
-            this.cullingCheck.CheckedChanged += new System.EventHandler(this.CullingCheck_CheckedChanged);
-            // 
-            // NewCulling_way
-            // 
-            this.NewCulling_way.Cue = "Way for culling";
-            this.NewCulling_way.Enabled = false;
-            this.NewCulling_way.Location = new System.Drawing.Point(1, 5);
-            this.NewCulling_way.Name = "NewCulling_way";
-            this.NewCulling_way.Size = new System.Drawing.Size(206, 20);
-            this.NewCulling_way.TabIndex = 52;
-            this.HelpShow.SetToolTip(this.NewCulling_way, "Folder for files not suitable for search criteria");
-            this.NewCulling_way.TextChanged += new System.EventHandler(this.NewCulling_way_TextChanged);
+            this.WayPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.WayPanel.Controls.Add(this.Four);
+            this.WayPanel.Controls.Add(this.NewKey_Four);
+            this.WayPanel.Controls.Add(this.One);
+            this.WayPanel.Controls.Add(this.NewKey_Three);
+            this.WayPanel.Controls.Add(this.Two);
+            this.WayPanel.Controls.Add(this.NewKey_Two);
+            this.WayPanel.Controls.Add(this.Three);
+            this.WayPanel.Controls.Add(this.NewKey_One);
+            this.WayPanel.Controls.Add(this.NewOne_way);
+            this.WayPanel.Controls.Add(this.NewFour_way);
+            this.WayPanel.Controls.Add(this.NewTwo_way);
+            this.WayPanel.Controls.Add(this.NewThree_way);
+            this.WayPanel.Location = new System.Drawing.Point(11, 48);
+            this.WayPanel.Name = "WayPanel";
+            this.WayPanel.Size = new System.Drawing.Size(742, 51);
+            this.WayPanel.TabIndex = 55;
             // 
             // NewKey_Four
             // 
+            this.NewKey_Four.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.NewKey_Four.Cue = "Key word for scan";
-            this.NewKey_Four.Location = new System.Drawing.Point(572, 118);
+            this.NewKey_Four.Location = new System.Drawing.Point(561, 31);
             this.NewKey_Four.Name = "NewKey_Four";
             this.NewKey_Four.Size = new System.Drawing.Size(181, 20);
             this.NewKey_Four.TabIndex = 51;
             // 
             // NewKey_Three
             // 
+            this.NewKey_Three.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.NewKey_Three.Cue = "Key word for scan";
-            this.NewKey_Three.Location = new System.Drawing.Point(386, 118);
+            this.NewKey_Three.Location = new System.Drawing.Point(375, 31);
             this.NewKey_Three.Name = "NewKey_Three";
             this.NewKey_Three.Size = new System.Drawing.Size(181, 20);
             this.NewKey_Three.TabIndex = 50;
             // 
             // NewKey_Two
             // 
+            this.NewKey_Two.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.NewKey_Two.Cue = "Key word for scan";
-            this.NewKey_Two.Location = new System.Drawing.Point(198, 118);
+            this.NewKey_Two.Location = new System.Drawing.Point(187, 31);
             this.NewKey_Two.Name = "NewKey_Two";
             this.NewKey_Two.Size = new System.Drawing.Size(181, 20);
             this.NewKey_Two.TabIndex = 49;
             // 
             // NewKey_One
             // 
+            this.NewKey_One.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.NewKey_One.Cue = "Key word for scan";
-            this.NewKey_One.Location = new System.Drawing.Point(11, 118);
+            this.NewKey_One.Location = new System.Drawing.Point(0, 31);
             this.NewKey_One.Name = "NewKey_One";
             this.NewKey_One.Size = new System.Drawing.Size(181, 20);
             this.NewKey_One.TabIndex = 48;
             // 
+            // NewOne_way
+            // 
+            this.NewOne_way.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.NewOne_way.Cue = "Where to move";
+            this.NewOne_way.Location = new System.Drawing.Point(0, 2);
+            this.NewOne_way.Name = "NewOne_way";
+            this.NewOne_way.Size = new System.Drawing.Size(149, 20);
+            this.NewOne_way.TabIndex = 43;
+            this.NewOne_way.TextChanged += new System.EventHandler(this.One_way_TextChanged);
+            // 
             // NewFour_way
             // 
+            this.NewFour_way.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.NewFour_way.Cue = "Where to move";
-            this.NewFour_way.Location = new System.Drawing.Point(572, 63);
+            this.NewFour_way.Location = new System.Drawing.Point(561, 2);
             this.NewFour_way.Name = "NewFour_way";
-            this.NewFour_way.Size = new System.Drawing.Size(181, 20);
+            this.NewFour_way.Size = new System.Drawing.Size(149, 20);
             this.NewFour_way.TabIndex = 47;
             this.NewFour_way.TextChanged += new System.EventHandler(this.Four_way_TextChanged);
             // 
-            // NewThree_way
-            // 
-            this.NewThree_way.Cue = "Where to move";
-            this.NewThree_way.Location = new System.Drawing.Point(386, 63);
-            this.NewThree_way.Name = "NewThree_way";
-            this.NewThree_way.Size = new System.Drawing.Size(181, 20);
-            this.NewThree_way.TabIndex = 46;
-            this.NewThree_way.TextChanged += new System.EventHandler(this.Three_way_TextChanged);
-            // 
             // NewTwo_way
             // 
+            this.NewTwo_way.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.NewTwo_way.Cue = "Where to move";
-            this.NewTwo_way.Location = new System.Drawing.Point(198, 63);
+            this.NewTwo_way.Location = new System.Drawing.Point(187, 2);
             this.NewTwo_way.Name = "NewTwo_way";
-            this.NewTwo_way.Size = new System.Drawing.Size(181, 20);
+            this.NewTwo_way.Size = new System.Drawing.Size(149, 20);
             this.NewTwo_way.TabIndex = 45;
             this.NewTwo_way.TextChanged += new System.EventHandler(this.Tow_way_TextChanged);
             // 
+            // NewThree_way
+            // 
+            this.NewThree_way.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.NewThree_way.Cue = "Where to move";
+            this.NewThree_way.Location = new System.Drawing.Point(375, 2);
+            this.NewThree_way.Name = "NewThree_way";
+            this.NewThree_way.Size = new System.Drawing.Size(149, 20);
+            this.NewThree_way.TabIndex = 46;
+            this.NewThree_way.TextChanged += new System.EventHandler(this.Three_way_TextChanged);
+            // 
             // NewSource_way
             // 
+            this.NewSource_way.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.NewSource_way.Cue = "The path to the folder in which the scan occurs. Example C:\\My Folder";
-            this.NewSource_way.Location = new System.Drawing.Point(11, 36);
+            this.NewSource_way.Location = new System.Drawing.Point(11, 22);
             this.NewSource_way.Name = "NewSource_way";
             this.NewSource_way.Size = new System.Drawing.Size(742, 20);
             this.NewSource_way.TabIndex = 44;
             this.NewSource_way.TextChanged += new System.EventHandler(this.Source_way_TextChanged);
-            // 
-            // NewOne_way
-            // 
-            this.NewOne_way.Cue = "Where to move";
-            this.NewOne_way.Location = new System.Drawing.Point(11, 63);
-            this.NewOne_way.Name = "NewOne_way";
-            this.NewOne_way.Size = new System.Drawing.Size(181, 20);
-            this.NewOne_way.TabIndex = 43;
-            this.NewOne_way.TextChanged += new System.EventHandler(this.One_way_TextChanged);
-            // 
-            // DeleteCulling
-            // 
-            this.DeleteCulling.AutoSize = true;
-            this.DeleteCulling.Enabled = false;
-            this.DeleteCulling.Location = new System.Drawing.Point(2, 76);
-            this.DeleteCulling.Name = "DeleteCulling";
-            this.DeleteCulling.Size = new System.Drawing.Size(93, 17);
-            this.DeleteCulling.TabIndex = 55;
-            this.DeleteCulling.Text = "Delete original";
-            this.HelpShow.SetToolTip(this.DeleteCulling, "Delete the rejected files in the source folder");
-            this.DeleteCulling.UseVisualStyleBackColor = true;
             // 
             // Magic_Copy
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.ClientSize = new System.Drawing.Size(978, 521);
+            this.ClientSize = new System.Drawing.Size(978, 481);
             this.Controls.Add(this.ModePanel2);
-            this.Controls.Add(this.NewKey_Four);
-            this.Controls.Add(this.NewKey_Three);
-            this.Controls.Add(this.NewKey_Two);
-            this.Controls.Add(this.NewKey_One);
-            this.Controls.Add(this.NewFour_way);
-            this.Controls.Add(this.NewThree_way);
-            this.Controls.Add(this.NewTwo_way);
             this.Controls.Add(this.NewSource_way);
-            this.Controls.Add(this.NewOne_way);
             this.Controls.Add(this.InfoRichTextBox);
             this.Controls.Add(this.Language);
             this.Controls.Add(this.BTNinfo);
@@ -981,14 +1029,11 @@
             this.Controls.Add(this.What);
             this.Controls.Add(this.Progress);
             this.Controls.Add(this.Source);
-            this.Controls.Add(this.Four);
-            this.Controls.Add(this.Three);
-            this.Controls.Add(this.Two);
-            this.Controls.Add(this.One);
             this.Controls.Add(this.FastMenu);
-            this.Controls.Add(this.panel5);
+            this.Controls.Add(this.ProgramMod);
             this.Controls.Add(this.panel6);
             this.Controls.Add(this.ModePanel);
+            this.Controls.Add(this.WayPanel);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.FastMenu;
             this.Name = "Magic_Copy";
@@ -1009,12 +1054,14 @@
             this.Language.PerformLayout();
             this.FastMenu.ResumeLayout(false);
             this.FastMenu.PerformLayout();
-            this.panel5.ResumeLayout(false);
-            this.panel5.PerformLayout();
+            this.ProgramMod.ResumeLayout(false);
+            this.ProgramMod.PerformLayout();
             this.panel6.ResumeLayout(false);
             this.ModePanel.ResumeLayout(false);
             this.ModePanel2.ResumeLayout(false);
             this.ModePanel2.PerformLayout();
+            this.WayPanel.ResumeLayout(false);
+            this.WayPanel.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1075,7 +1122,7 @@
         private System.Windows.Forms.CheckBox DeleteAfterTestDefault;
         private System.Windows.Forms.CheckBox Notifications;
         private System.Windows.Forms.MenuStrip FastMenu;
-        private System.Windows.Forms.Panel panel5;
+        private System.Windows.Forms.Panel ProgramMod;
         private System.Windows.Forms.Panel panel6;
         private System.Windows.Forms.Panel ModePanel;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
@@ -1097,6 +1144,8 @@
         private System.Windows.Forms.Panel ModePanel2;
         private System.Windows.Forms.CheckBox cullingCheck;
         private System.Windows.Forms.CheckBox DeleteCulling;
+        private System.Windows.Forms.Panel WayPanel;
+        private System.Windows.Forms.ToolStripMenuItem helpInfoToolStripMenuItem;
     }
 }
 
