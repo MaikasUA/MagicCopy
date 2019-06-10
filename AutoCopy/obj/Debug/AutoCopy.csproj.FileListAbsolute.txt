@@ -1,9 +1,0 @@
-D:\C#\AutoCopy\AutoCopy\bin\Debug\AutoCopy.exe.config
-D:\C#\AutoCopy\AutoCopy\bin\Debug\AutoCopy.exe
-D:\C#\AutoCopy\AutoCopy\bin\Debug\AutoCopy.pdb
-D:\C#\AutoCopy\AutoCopy\obj\Debug\AutoCopy.csprojResolveAssemblyReference.cache
-D:\C#\AutoCopy\AutoCopy\obj\Debug\AutoCopy.Properties.Resources.resources
-D:\C#\AutoCopy\AutoCopy\obj\Debug\AutoCopy.csproj.GenerateResource.Cache
-D:\C#\AutoCopy\AutoCopy\obj\Debug\AutoCopy.exe
-D:\C#\AutoCopy\AutoCopy\obj\Debug\AutoCopy.pdb
-D:\C#\AutoCopy\AutoCopy\obj\Debug\AutoCopy.Magic_Copy.resources

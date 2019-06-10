@@ -1,17 +1,29 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Json;
+using System.Threading.Tasks;
+using System.Text.RegularExpressions;
+using Newtonsoft.Json;
+using System.Diagnostics;
+
+//994; 520 Default size
 
 namespace MagicCopy
 {
     public partial class Magic_Copy : Form
     {
-        BackgroundWorker Worker;
-        FileSystemWatcher Watcher;
-        private string WaySave = @"TestSave.sav";
+        private BackgroundWorker Worker;
+        private BackgroundWorker ImageWorker;
+        private FileSystemWatcher Watcher;
+        private long totalMemory = GC.GetTotalMemory(true);
+        private string WaySave = @"C:\Users\" + Environment.UserName + @"\AppData\Local\MagicCopy\SaveSetting.sav";
+        private string WayCataloge = @"ID.sav";
         private string source_way = @"";
         private string one_way = @"";
         private string two_way = @"";
@@ -24,6 +36,7 @@ namespace MagicCopy
         private string[] Key2 = new string[] { };
         private string[] Key3 = new string[] { };
         private string[] Key4 = new string[] { };
+        private string[] KeyWordScan;
 
         //private string[] Key;
         private string[] WAYS;
@@ -33,21 +46,56 @@ namespace MagicCopy
         private uint TotalCullingFile = 0;
         private bool EndScan = false;
         private bool Helper;
+        private bool ImageStop = false;
 
-        Control[] WayAndKey;
-        Control[] Way;
-        Control[] KeyWord;
+        //General
+        private float UserLimitMemory = 2048;
+        private float TotalUseMem = 0;
+        private int TotalPic = 0;
+        //private int ClickArts;
+        //private string ClickArtsID;
+
+        private Control[] WayAndKey;
+        private Control[] Way;
+        private Control[] KeyWord;
+
+        private List<PictureBox> pictureBox = new List<PictureBox>();
+        private PictureBox PicBox;
+        //private string source_wayPanel;
+        private bool FirstImageWindow = true;
+        private byte HMaxLocalImageWindow = 0;
+        private int id = 0;
+        private int x = 0; //Magic
+        private int y = 0; //Magic
+        private int k = 0; //Magic
+        bool exitLoop = false;
+
+        private string ID = ""; //Art ID
+        private string SelectFileWay = ""; //Art Way
+
 
         public Magic_Copy()
         {
+
+            //AppearanceCatalogeSelect.Visible = false; //Remove after create style
+            //Size resolution = Screen.PrimaryScreen.Bounds.Size; Monotor Size
+            //MessageBox.Show(resolution.ToString());
             InitializeComponent();
             SettingMod();
+
             CopyOnceDefault.Checked = true;
+
             Worker = new BackgroundWorker();
             Worker.DoWork += FuckingWorker;
             Worker.ProgressChanged += ProgressChanged;
             Worker.WorkerReportsProgress = true;
             Worker.WorkerSupportsCancellation = true;
+
+            ImageWorker = new BackgroundWorker();
+            ImageWorker.DoWork += FuckingWorkerImage;
+            ImageWorker.ProgressChanged += ProgressImageChanged;
+            ImageWorker.WorkerReportsProgress = true;
+            ImageWorker.WorkerSupportsCancellation = true;
 
             Watcher = new FileSystemWatcher
             {
@@ -60,6 +108,7 @@ namespace MagicCopy
 
             ModePanel.BackColor = Color.FromArgb(0, 0, 0, 0);
             Progress.Enabled = true;
+            debugOptionsToolStripMenuItem.Visible = false;
         }
 
         private void MagicCopy_Load(object sender, EventArgs e)
@@ -182,6 +231,11 @@ namespace MagicCopy
             CopyFiles();
         }
 
+        private void FuckingWorkerImage(object source, DoWorkEventArgs e)
+        {
+            DebugImageCheck();
+        }
+
         private void Apply_Click(object sender, EventArgs e)
         {
             try
@@ -228,8 +282,41 @@ namespace MagicCopy
             }
         }
 
+        private void ProgressImageChanged(object sender, ProgressChangedEventArgs e)
+        {
+            try
+            {
+                if (EndScan)
+                {
+                    Progress.Value = 0;
+                }
+                if (e.ProgressPercentage == -1)
+                {
+                    Progress.Maximum = (int)e.UserState;
+                }
+                else
+                {
+                    Progress.Value = e.ProgressPercentage;
+                }
+                if (Progress.Value == Progress.Maximum)
+                {
+                    Progress.Value = 0;
+                }
+            }
+            catch (Exception)
+            {
+
+            }
+        }
+
         private void CopyFiles()
         {
+            Invoke((MethodInvoker)delegate
+            {
+                ScanModePbtn.Enabled = false;
+                DebugBTN.Enabled = false;
+            });
+
             EndScan = false;
             //What.Text = "";
             //Key0 = NewKey_One.Text;
@@ -325,9 +412,16 @@ namespace MagicCopy
 
             for (byte i = 0; i < WAY.Length; i++)
             {
-                if (WAY[i] == source_way)
+                if (WAY[i] == source_way && WAY[i].Length != 1 && WAY[i] != "*")
                 {
-                    MessageBox.Show("Error way");
+                    if (Russian.Checked) { MessageBox.Show("Ошибка! Исходный и конечный пути не должны быть одинаковыми"); }
+                    if (Ukrainian.Checked) { MessageBox.Show("Помилка! Вихідний і кінцевий шляху не повинні бути однаковими"); }
+                    else { MessageBox.Show("Error! The source and destination paths must not be the same"); }
+                    Invoke((MethodInvoker)delegate
+                    {
+                        ScanModePbtn.Enabled = true;
+                        DebugBTN.Enabled = true;
+                    });
                     return;
                 }
             }
@@ -342,7 +436,7 @@ namespace MagicCopy
                 if (two_way.Length >= 3) { DirectoryInfo di2 = Directory.Exists(two_way) ? new DirectoryInfo(two_way) : Directory.CreateDirectory(two_way); }
                 if (three_way.Length >= 3) { DirectoryInfo di3 = Directory.Exists(three_way) ? new DirectoryInfo(three_way) : Directory.CreateDirectory(three_way); }
                 if (four_way.Length >= 3) { DirectoryInfo di4 = Directory.Exists(four_way) ? new DirectoryInfo(four_way) : Directory.CreateDirectory(four_way); }
-                if (culling_way.Length >= 3) { DirectoryInfo di4 = Directory.Exists(culling_way) ? new DirectoryInfo(culling_way) : Directory.CreateDirectory(culling_way); }
+                //if (culling_way.Length >= 3) { DirectoryInfo di4 = Directory.Exists(culling_way) ? new DirectoryInfo(culling_way) : Directory.CreateDirectory(culling_way); }
             }
             catch (NotSupportedException)
             {
@@ -364,8 +458,8 @@ namespace MagicCopy
                     return;
                 }
 
-                string FN = file.Name.ToLower();
-                string FNnoBadSymbol = FN.Replace('+', ' ').Replace('_', ' ').Replace('-', ' ');
+                string RemoveTrashSymbol = file.Name.ToLower();
+                Remove_Trash(RemoveTrashSymbol, out RemoveTrashSymbol);
 
                 string[] KEY = new string[4];
 
@@ -383,39 +477,45 @@ namespace MagicCopy
 
                             bool HasMinus = IndexKey == 0 ? true : false;
 
-                            if (HasMinus && FNnoBadSymbol.IndexOf(KeyString) != -1)
+                            if (HasMinus && RemoveTrashSymbol.IndexOf(KeyString) != -1)
                             {
                                 SUCCESS = false;
                                 break;
                             }
 
-                            if (FNnoBadSymbol.IndexOf(Key1[i]) == -1 && !HasMinus) { SUCCESS = false; break; }
+                            if (RemoveTrashSymbol.IndexOf(Key1[i]) == -1 && !HasMinus) { SUCCESS = false; break; }
+
                         }
                         if (SUCCESS || Key1[0] == "*")
                         {
-                            string sourceFile = Path.Combine(source_way, file.Name); //Reading the source path
-                            string destFile = Path.Combine(one_way, file.Name); //Set the path for copying a file
-                            File.Copy(sourceFile, destFile, true); //Copy file
-
-                            TotalCopyFile++;
-
-                            if (AnotherTestDefault.Checked)
+                            try
                             {
-                                KEYS[0] = 2;
-                                NewChecked(FN, KEYS, KEY);
-                            }
 
-                            if (DeleteOriginalFile.Checked) { File.Delete(sourceFile); }
+                                string sourceFile = Path.Combine(source_way, file.Name); //Reading the source path
+                                string destFile = Path.Combine(one_way, file.Name); //Set the path for copying a file
 
-                            if (Advanced.Checked) //Checking Advanced setting
-                            {
-                                if (DeleteOriginal1.Checked) { File.Delete(sourceFile); }
-
-                                if (AnotherTest1.Checked)
+                                if (Advanced.Checked && DeleteModTumbler1.Checked && AnotherTest1.Checked) //Delete mod
                                 {
-                                    KEYS[0] = 2;
-                                    NewChecked(FN, KEYS, KEY);
+                                    File.Delete(sourceFile);
                                 }
+
+                                else { File.Copy(sourceFile, destFile, true); } //Copy file
+
+                                if (DeleteOriginalFile.Checked) { File.Delete(sourceFile); }
+
+
+                                TotalCopyFile++;
+
+                                //if (AnotherTestDefault.Checked)
+                                //{
+                                //    KEYS[0] = 2;
+                                //    NewChecked(RemoveTrashSymbol, KEYS, KEY);
+                                //}
+
+                            }
+                            catch(Exception)
+                            {
+
                             }
                         }
                     }
@@ -430,39 +530,52 @@ namespace MagicCopy
 
                             bool HasMinus = IndexKey == 0 ? true : false;
 
-                            if (HasMinus && FNnoBadSymbol.IndexOf(KeyString) != -1)
+                            if (HasMinus && RemoveTrashSymbol.IndexOf(KeyString) != -1)
                             {
                                 SUCCESS = false;
                                 break;
                             }
 
-                            if (FNnoBadSymbol.IndexOf(Key2[i]) == -1 && !HasMinus) { SUCCESS = false; break; }
+                            if (RemoveTrashSymbol.IndexOf(Key2[i]) == -1 && !HasMinus) { SUCCESS = false; break; }
                         }
                         if (SUCCESS || Key2[0] == "*")
                         {
-                            string sourceFile = Path.Combine(source_way, file.Name); //Reading the source path
-                            string destFile = Path.Combine(two_way, file.Name); //Set the path for copying a file
-                            File.Copy(sourceFile, destFile, true); //Copy file
-
-                            TotalCopyFile++;
-
-                            if (AnotherTestDefault.Checked)
+                            try
                             {
-                                KEYS[1] = 2;
-                                NewChecked(FN, KEYS, KEY);
-                            }
+                                string sourceFile = Path.Combine(source_way, file.Name); //Reading the source path
+                                string destFile = Path.Combine(two_way, file.Name); //Set the path for copying a file
 
-                            if (DeleteOriginalFile.Checked) { File.Delete(sourceFile); }
-
-                            if (Advanced.Checked) //Checking Advanced setting
-                            {
-                                if (DeleteOriginal1.Checked) { File.Delete(sourceFile); }
-
-                                if (AnotherTest1.Checked)
+                                if (Advanced.Checked && DeleteModTumbler2.Checked && AnotherTest2.Checked) //Delete mod
                                 {
-                                    KEYS[1] = 2;
-                                    NewChecked(FN, KEYS, KEY);
+                                    File.Delete(sourceFile);
                                 }
+
+                                else { File.Copy(sourceFile, destFile, true); } //Copy file
+
+                                if (DeleteOriginalFile.Checked) { File.Delete(sourceFile); }
+
+                                TotalCopyFile++;
+
+                                //if (AnotherTestDefault.Checked)
+                                //{
+                                //    KEYS[1] = 2;
+                                //    NewChecked(RemoveTrashSymbol, KEYS, KEY);
+                                //}
+
+                                //if (Advanced.Checked) //Checking Advanced setting
+                                //{
+                                //    if (DeleteOriginal1.Checked) { File.Delete(sourceFile); }
+
+                                //    if (AnotherTest1.Checked)
+                                //    {
+                                //        KEYS[1] = 2;
+                                //        NewChecked(RemoveTrashSymbol, KEYS, KEY);
+                                //    }
+                                //}
+                            }
+                            catch (Exception)
+                            {
+
                             }
                         }
                     }
@@ -476,40 +589,46 @@ namespace MagicCopy
 
                             bool HasMinus = IndexKey == 0 ? true : false;
 
-                            if (HasMinus && FNnoBadSymbol.IndexOf(KeyString) != -1)
+                            if (HasMinus && RemoveTrashSymbol.IndexOf(KeyString) != -1)
                             {
                                 SUCCESS = false;
                                 break;
                             }
 
-                            if (FNnoBadSymbol.IndexOf(Key3[i]) == -1 && !HasMinus) { SUCCESS = false; break; }
+                            if (RemoveTrashSymbol.IndexOf(Key3[i]) == -1 && !HasMinus) { SUCCESS = false; break; }
                         }
                         if (SUCCESS || Key3[0] == "*")
                         {
                             string sourceFile = Path.Combine(source_way, file.Name); //Reading the source path
                             string destFile = Path.Combine(three_way, file.Name); //Set the path for copying a file
-                            File.Copy(sourceFile, destFile, true); //Copy file
 
-                            TotalCopyFile++;
-
-                            if (AnotherTestDefault.Checked)
+                            if (Advanced.Checked && DeleteModTumbler3.Checked && AnotherTest3.Checked) //Delete mod
                             {
-                                KEYS[2] = 2;
-                                NewChecked(FN, KEYS, KEY);
+                                File.Delete(sourceFile);
                             }
+
+                            else { File.Copy(sourceFile, destFile, true); } //Copy file
 
                             if (DeleteOriginalFile.Checked) { File.Delete(sourceFile); }
 
-                            if (Advanced.Checked) //Checking Advanced setting
-                            {
-                                if (DeleteOriginal1.Checked) { File.Delete(sourceFile); }
+                            TotalCopyFile++;
 
-                                if (AnotherTest1.Checked)
-                                {
-                                    KEYS[2] = 2;
-                                    NewChecked(FN, KEYS, KEY);
-                                }
-                            }
+                            //if (AnotherTestDefault.Checked)
+                            //{
+                            //    KEYS[2] = 2;
+                            //    NewChecked(RemoveTrashSymbol, KEYS, KEY);
+                            //}
+
+                            //if (Advanced.Checked) //Checking Advanced setting
+                            //{
+                            //    if (DeleteOriginal1.Checked) { File.Delete(sourceFile); }
+
+                            //    if (AnotherTest1.Checked)
+                            //    {
+                            //        KEYS[2] = 2;
+                            //        NewChecked(RemoveTrashSymbol, KEYS, KEY);
+                            //    }
+                            //}
                         }
                     }
                     if (Key4.Length >= 0 && Key4[0] != "" || KEYS[3] == 1 || Key4[0] == "*") //Scanning files in the source folder for matches
@@ -522,40 +641,46 @@ namespace MagicCopy
 
                             bool HasMinus = IndexKey == 0 ? true : false;
 
-                            if (HasMinus && FNnoBadSymbol.IndexOf(KeyString) != -1)
+                            if (HasMinus && RemoveTrashSymbol.IndexOf(KeyString) != -1)
                             {
                                 SUCCESS = false;
                                 break;
                             }
 
-                            if (FNnoBadSymbol.IndexOf(Key4[i]) == -1 && !HasMinus) { SUCCESS = false; break; }
+                            if (RemoveTrashSymbol.IndexOf(Key4[i]) == -1 && !HasMinus) { SUCCESS = false; break; }
                         }
                         if (SUCCESS || Key4[0] == "*")
                         {
                             string sourceFile = Path.Combine(source_way, file.Name); //Reading the source path
                             string destFile = Path.Combine(four_way, file.Name); //Set the path for copying a file
-                            File.Copy(sourceFile, destFile, true); //Copy file
 
-                            TotalCopyFile++;
-
-                            if (AnotherTestDefault.Checked)
+                            if (Advanced.Checked && DeleteModTumbler4.Checked && AnotherTest4.Checked) //Delete mod
                             {
-                                KEYS[3] = 2;
-                                NewChecked(FN, KEYS, KEY);
+                                File.Delete(sourceFile);
                             }
+
+                            else { File.Copy(sourceFile, destFile, true); } //Copy file
 
                             if (DeleteOriginalFile.Checked) { File.Delete(sourceFile); }
 
-                            if (Advanced.Checked) //Checking Advanced setting
-                            {
-                                if (DeleteOriginal1.Checked) { File.Delete(sourceFile); }
+                            TotalCopyFile++;
 
-                                if (AnotherTest1.Checked)
-                                {
-                                    KEYS[3] = 2;
-                                    NewChecked(FN, KEYS, KEY);
-                                }
-                            }
+                            //if (AnotherTestDefault.Checked)
+                            //{
+                            //    KEYS[3] = 2;
+                            //    NewChecked(RemoveTrashSymbol, KEYS, KEY);
+                            //}
+
+                            //if (Advanced.Checked) //Checking Advanced setting
+                            //{
+                            //    if (DeleteOriginal1.Checked) { File.Delete(sourceFile); }
+
+                            //    if (AnotherTest1.Checked)
+                            //    {
+                            //        KEYS[3] = 2;
+                            //        NewChecked(RemoveTrashSymbol, KEYS, KEY);
+                            //    }
+                            //}
                         }
                     }
                     //else if (cullingCheck.Checked && culling_way.Length > 3) //Culling
@@ -602,6 +727,12 @@ namespace MagicCopy
             }
             if (Notifications.Checked)
             {
+                Invoke((MethodInvoker)delegate
+                {
+                    ScanModePbtn.Enabled = true;
+                    DebugBTN.Enabled = true;
+                    ClearBTNimage.Enabled = true;
+                });
                 string MessageString = String.Format("Done! \nTotal files: {0} \nMatched: {1} \nCulling {2}", TotalFile, TotalCopyFile, TotalCullingFile);
                 MessageBox.Show(MessageString);
             }
@@ -610,6 +741,13 @@ namespace MagicCopy
             TotalCullingFile = 0;
             EndScan = true;
             //What.Text = "Copy over";
+            Invoke((MethodInvoker)delegate
+            {
+                ScanModePbtn.Enabled = true;
+                DebugBTN.Enabled = true;
+                ClearBTNimage.Enabled = true;
+                CallClear();
+            });
         }
 
         private static void NewChecked(string FN, byte[] KEYS, string[] KEY)
@@ -630,6 +768,12 @@ namespace MagicCopy
 
         private void Close_Click(object sender, EventArgs e) //Close program
         {
+            Invoke((MethodInvoker)delegate
+            {
+                ScanModePbtn.Enabled = true;
+                DebugBTN.Enabled = true;
+                ClearBTNimage.Enabled = true;
+            });
             Close();
         }
 
@@ -650,6 +794,8 @@ namespace MagicCopy
         {
             AdvancedDeletePanel.Enabled = true;
             DefaultPanel.Enabled = false;
+
+            SettingMod();
         }
 
         private void SettingMod()
@@ -705,9 +851,9 @@ namespace MagicCopy
             NewKey_Two.Cue = NewKey_One.Cue;
             NewKey_Three.Cue = NewKey_One.Cue;
             NewKey_Four.Cue = NewKey_One.Cue;
-            DeleteAfterTest2.Text = DeleteAfterTest1.Text;
-            DeleteAfterTest3.Text = DeleteAfterTest1.Text;
-            DeleteAfterTest4.Text = DeleteAfterTest1.Text;
+            DeleteModTumbler2.Text = DeleteModTumbler1.Text;
+            DeleteModTumbler3.Text = DeleteModTumbler1.Text;
+            DeleteModTumbler4.Text = DeleteModTumbler1.Text;
             AnotherTest2.Text = AnotherTest1.Text;
             AnotherTest3.Text = AnotherTest1.Text;
             AnotherTest4.Text = AnotherTest1.Text;
@@ -719,17 +865,17 @@ namespace MagicCopy
             CopyOnce4.Text = CopyOnce1.Text;
             Clone2.Text = Clone1.Text;
             BTNClear2.Text = BTNClear1.Text;
-            DeleteCulling.Text = DeleteAfterTest1.Text;
+            DeleteCulling.Text = DeleteModTumbler1.Text;
         }
 
         private void English_CheckedChanged(object sender, EventArgs e) //English Localization
         {
             Advanced.Text = "Advanced";
             DeleteOriginal1.Text = "Delete after copying";
-            AnotherTest1.Text = "Another test";
+            AnotherTest1.Text = "Only delete";
             CopyOnce1.Text = "Copy once";
             Default.Text = "Default";
-            AnotherTestDefault.Text = "Another Test";
+            AnotherTestDefault.Text = "Only delete";
             DeleteOriginalFile.Text = "Delete all original file";
             CopyOnceDefault.Text = "Copy (1 file to 1 folder)";
             Source.Text = "Source folder";
@@ -744,7 +890,7 @@ namespace MagicCopy
             AutoLoading.Text = "Auto loading setting";
             AutoCheck.Text = "Automatic tracking";
             BTNinfo.Text = "Info";
-            DeleteAfterTest1.Text = "Delete original";
+            DeleteModTumbler1.Text = "Unlock delete mod";
             Clone1.Text = "Clone";
             BTNClear1.Text = "Clear";
             Notifications.Text = "Show notifications";
@@ -755,6 +901,8 @@ namespace MagicCopy
             NewCulling_way.Cue = "Way for culling";
             CullingFolder.Text = "Culling folder";
             cullingCheck.Text = "Use culling";
+            ScanModePbtn.Text = "Collection";
+            helpInfoToolStripMenuItem.Text = "\"Collection\"  Help";
             FastTranslation();
         }
 
@@ -762,10 +910,10 @@ namespace MagicCopy
         {
             Advanced.Text = "Расширенные";
             DeleteOriginal1.Text = "Удалить после копирования";
-            AnotherTest1.Text = "Повторная проверка";
+            AnotherTest1.Text = "Только удаление";
             CopyOnce1.Text = "Одно копирование";
             Default.Text = "По умолчанию";
-            AnotherTestDefault.Text = "Повторная проверка";
+            AnotherTestDefault.Text = "Только удаление";
             DeleteOriginalFile.Text = "Удалить оригинальные файлы";
             CopyOnceDefault.Text = "Копирование (1 файл в 1 папку)";
             Source.Text = "Исходная папка";
@@ -777,10 +925,10 @@ namespace MagicCopy
             saveToolStripMenuItem.Text = "Сохранить";
             loadToolStripMenuItem.Text = "Загрузить";
             closeToolStripMenuItem.Text = "Закрыть";
-            AutoLoading.Text = "Авто загрузка установок";
+            AutoLoading.Text = "Автозагрузка установок";
             AutoCheck.Text = "Автоматическое слежение";
             BTNinfo.Text = "Информация";
-            DeleteAfterTest1.Text = "Удалить оригинал";
+            DeleteModTumbler1.Text = "Режим удаления";
             Clone1.Text = "Клонировать";
             BTNClear1.Text = "Очистить";
             Notifications.Text = "Показывать уведомления";
@@ -791,6 +939,8 @@ namespace MagicCopy
             NewCulling_way.Cue = "Путь для отбраковки";
             CullingFolder.Text = "Папка отбраковки";
             cullingCheck.Text = "Отбраковка";
+            ScanModePbtn.Text = "Коллекция";
+            helpInfoToolStripMenuItem.Text = "\"Коллекция\" Помощь";
             FastTranslation();
         }
 
@@ -798,12 +948,12 @@ namespace MagicCopy
         {
             Advanced.Text = "Розширені";
             DeleteOriginal1.Text = "Видалити після копіювання";
-            AnotherTest1.Text = "Провторная перевірка";
+            AnotherTest1.Text = "Тiльки видалення";
             CopyOnce1.Text = "Одне копіювання";
             Default.Text = "Стандартнi";
-            AnotherTestDefault.Text = "Повторна перевірка";
+            AnotherTestDefault.Text = "Тiльки видалення";
             DeleteOriginalFile.Text = "Видалити оригінальні файли";
-            CopyOnceDefault.Text = "Копіювання (1 файл в 1 папку)";
+            CopyOnceDefault.Text = "Копівання (1 файл в 1 папку)";
             Source.Text = "Вихідна папка";
             Apply.Text = "Пуск";
             Stop.Text = "Зупинити";
@@ -813,10 +963,10 @@ namespace MagicCopy
             loadToolStripMenuItem.Text = "Завантажити";
             resetToolStripMenuItem.Text = "Скинуты";
             closeToolStripMenuItem.Text = "Закрити";
-            AutoLoading.Text = "Авто завантаження установок";
+            AutoLoading.Text = "Автозавантаження установок";
             AutoCheck.Text = "Автоматичне стеження";
             BTNinfo.Text = "Інформація";
-            DeleteAfterTest1.Text = "Видалити оригінал";
+            DeleteModTumbler1.Text = "Режим видалення";
             Clone1.Text = "Клонувати";
             BTNClear1.Text = "Очистити";
             Notifications.Text = "Показувати сповіщення";
@@ -827,6 +977,8 @@ namespace MagicCopy
             NewCulling_way.Cue = "Шлях для відбраковування";
             CullingFolder.Text = "Папка відбраковування";
             cullingCheck.Text = "Відбраковування";
+            ScanModePbtn.Text = "Колекція";
+            helpInfoToolStripMenuItem.Text = "\"Колекцiя\" Допомога";
             FastTranslation();
         }
 
@@ -835,7 +987,18 @@ namespace MagicCopy
             string SaveText = "This is a save file executed through the ass.";
             try
             {
-                string[] WayAndKey = { AutoLoading.Checked.ToString(), source_way, one_way, two_way, three_way, four_way, culling_way, NewKey_One.Text, NewKey_Two.Text, NewKey_Three.Text, NewKey_Four.Text, SaveText };
+                string[] WayAndKey = 
+                {   AutoLoading.Checked.ToString(), source_way, one_way, two_way,
+                    three_way, four_way, culling_way, NewKey_One.Text, NewKey_Two.Text,
+                    NewKey_Three.Text, NewKey_Four.Text,
+                    English.Checked.ToString(),
+                    Russian.Checked.ToString(),
+                    Ukrainian.Checked.ToString(),
+                    Default.Checked.ToString(),
+                    Advanced.Checked.ToString(),
+                    SaveText
+                };
+
                 File.WriteAllLines(path: WaySave, contents: WayAndKey, encoding: Encoding.UTF8);
             }
             catch(Exception)
@@ -866,16 +1029,18 @@ namespace MagicCopy
             {
                 string[] readSetting = File.ReadAllLines(WaySave, Encoding.UTF8);
                 AutoLoading.Checked = Convert.ToBoolean(readSetting[0]);
-                for (byte i = 1; i < readSetting.Length - 1; i++)
+                try
                 {
-                    try
-                    {
-                        WayAndKey[i].Text = readSetting[i];
-                    }
-                    catch (Exception)
-                    {
-                        MessageBox.Show("Error load setting!");
-                    }
+                    for (int i = 1; i < 11; i++) { WayAndKey[i].Text = readSetting[i]; }
+                    English.Checked = Convert.ToBoolean(readSetting[11]);
+                    Russian.Checked = Convert.ToBoolean(readSetting[12]);
+                    Ukrainian.Checked = Convert.ToBoolean(readSetting[13]);
+                    Default.Checked = Convert.ToBoolean(readSetting[14]);
+                    Advanced.Checked = Convert.ToBoolean(readSetting[15]);
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Error load setting!");
                 }
             }
             catch (FileNotFoundException)
@@ -886,7 +1051,12 @@ namespace MagicCopy
 
         private void WayAndText()
         {
-            WayAndKey = new Control[] { AutoLoading, NewSource_way, NewOne_way, NewTwo_way, NewThree_way, NewFour_way, NewCulling_way, NewKey_One, NewKey_Two, NewKey_Three, NewKey_Four };
+            WayAndKey = new Control[]
+            {
+                AutoLoading, NewSource_way, NewOne_way, NewTwo_way,
+                NewThree_way, NewFour_way, NewCulling_way, NewKey_One,
+                NewKey_Two, NewKey_Three, NewKey_Four, English, Russian, Ukrainian, Default, Advanced
+            };
         }
 
         private void ResetSetting_Click(object sender, EventArgs e)
@@ -894,7 +1064,7 @@ namespace MagicCopy
             try
             {
                 WayAndText();
-                for (byte i = 1; i < WayAndKey.Length; i++)
+                for (byte i = 1; i < WayAndKey.Length - 4; i++)
                 {
                     Progress.Value = 0;
                     try
@@ -1019,16 +1189,17 @@ namespace MagicCopy
                 }
             }
         }
-        private void AnotherTestCheck(object sender, EventArgs e)
+
+        private void AnotherTestCheck(object sender, EventArgs e)//ненужная хрень
         {
-            DeleteAfterTest1.Enabled = AnotherTest1.Checked;
-            DeleteAfterTest2.Enabled = AnotherTest2.Checked;
-            DeleteAfterTest3.Enabled = AnotherTest3.Checked;
-            DeleteAfterTest4.Enabled = AnotherTest4.Checked;
-            if (!DeleteAfterTest1.Enabled) { DeleteAfterTest1.Checked = false; }
-            if (!DeleteAfterTest2.Enabled) { DeleteAfterTest2.Checked = false; }
-            if (!DeleteAfterTest3.Enabled) { DeleteAfterTest3.Checked = false; }
-            if (!DeleteAfterTest4.Enabled) { DeleteAfterTest4.Checked = false; }
+            DeleteModTumbler1.Enabled = AnotherTest1.Checked;
+            DeleteModTumbler2.Enabled = AnotherTest2.Checked;
+            DeleteModTumbler3.Enabled = AnotherTest3.Checked;
+            DeleteModTumbler4.Enabled = AnotherTest4.Checked;
+            if (!DeleteModTumbler1.Enabled) { DeleteModTumbler1.Checked = false; }
+            if (!DeleteModTumbler2.Enabled) { DeleteModTumbler2.Checked = false; }
+            if (!DeleteModTumbler3.Enabled) { DeleteModTumbler3.Checked = false; }
+            if (!DeleteModTumbler4.Enabled) { DeleteModTumbler4.Checked = false; }
         }
 
         private void AnotherTestDelault(object sender, EventArgs e)
@@ -1089,14 +1260,536 @@ namespace MagicCopy
 
         private void helpInfoToolStripMenuItem_Click(object sender, EventArgs e)//Сделать
         {
-            if (English.Checked) { MessageBox.Show(""); }
-            if (Russian.Checked) { MessageBox.Show(""); }
-            else { MessageBox.Show(""); }
+            if (English.Checked)   { MessageBox.Show("The Collection module is at the development stage, for the program to work correctly, at least 4gb RAM \n Possible errors if RAM size low! \n Correcting the consumption of computer resources is not optimized due to the lack of statistics \n Higher request to send the results of the program to the email specified in info \n P.s. When setting the limit of RAM, do not exceed half of the total amount of your RAM"); }
+            if (Russian.Checked)   { MessageBox.Show("Модуль Коллекция на стадии разработки, для корректной работы программы необходимо минимум 4gb ОЗУ\nПри меньшем объеме возможны ошибки! \nКорректирование потребление ресурсов компьютера не оптимизированно из-за недостатка статистики \nОгромная просьба присылать результаты работы программы на email указанный в info \nP.s. При установке лимита ОЗУ не превышайте половину от общего объема вашей ОЗУ"); }
+            if (Ukrainian.Checked) { MessageBox.Show("Модуль Колекцiя на стадії розробки, для коректної роботи програми необхідно мінімум 4gb ОЗУ \n Прі меншому обсязі можливі помилки! \n Корректірованіе споживання ресурсів комп'ютера не оптимізовані через нестачу статистики \n Огромная прохання надсилати результати роботи програми на email вказаний в info \n P.s. При установці ліміту ОЗУ не перевищуйте половину від загального обсягу вашої ОЗУ"); }
         }
 
-        private void InfoRichTextBox_TextChanged(object sender, EventArgs e)
+        private void MultiP(object sender, EventArgs e)
         {
+            bool Mp = MultiScanPanel.Visible == true ? false : true;
+            MultiScanPanel.Visible = Mp;            
+            MultiScanPanel.BringToFront(); //Убрать заглушку после работы с панелями //Что это за заглушка?
+            Apply.Enabled = !Mp;
+            Stop.Enabled = !Mp;
+            ModePanel2.Visible = !Mp;
+            //Source.Visible = !Mp;
+            Advanced.Checked = true;
+        }
 
+        //public static Bitmap LoadBitmap(string path)
+        //{
+        //    //Открыть файл в режиме только для чтения
+        //    using (FileStream stream = new FileStream(path, FileMode.Open, FileAccess.Read))
+        //    //Получить двоичный считыватель для потока файлов
+        //    using (BinaryReader reader = new BinaryReader(stream))
+        //    {
+        //        //скопировать содержимое файла в поток памяти
+        //        var memoryStream = new MemoryStream(reader.ReadBytes((int)stream.Length));
+        //        //сделать новый объект Bitmap владельцем MemoryStream
+        //        return new Bitmap(memoryStream);
+        //    }
+        //}
+
+        private void CollectionStartScan(object sender, EventArgs e)
+        {
+            ClearBTNimage.Enabled = false;
+            String UserName = Environment.UserName;
+            TotalUseMem = 0;
+            ImageStop = false;
+            KeyWordScan = KeyWordCatalog.Text.Split(',');
+            string wayToFile = @"";
+            if (KeyWordScan != null && KeyWordScan[0] != "")
+            {
+                try
+                {
+                    string[] ArryInfoFile = new string[] { };
+                    try
+                    {
+                        ArryInfoFile = File.ReadAllLines(@"C:\Users\" + UserName + @"\AppData\Local\MagicCopy\ImageTag.json");
+                    }
+                    catch (Exception)
+                    {
+                        File.Create(@"C:\Users\" + UserName + @"\AppData\Local\MagicCopy\ImageTag.json");
+                    }
+                    exitLoop = false;
+                    for (int i = 1; i < ArryInfoFile.Length; i++)
+                    {
+                        if (exitLoop) break;
+                        ImageCollection newImageTag = JsonConvert.DeserializeObject<ImageCollection>(ArryInfoFile[i]);
+                        foreach (var info in newImageTag.ImageTags)
+                        {
+                            if (exitLoop) break;
+                            if (KeyWordScan[0] != "Click" || KeyWordScan[i] == info.TAG || KeyWordScan[i] == info.ID)
+                            {
+                                bool SUCCESS = true;
+                                for (int d = 0; d < KeyWordScan.Length; d++)
+                                {
+                                    if (exitLoop) break;
+                                    //string RemoveTrashSymbol = info.TAG.ToLower();
+                                    //Remove_Trash(RemoveTrashSymbol, out RemoveTrashSymbol);
+                                    int IndexKey = KeyWordScan[d].IndexOf(NO); //Exeption tag
+                                    string KeyString = KeyWordScan[d].Remove(0, 1); //Check exeption tag
+                                    bool HasMinus = IndexKey == 0 ? true : false;
+                                    if (HasMinus && info.TAG.IndexOf(KeyString) != -1 || HasMinus && info.ID.IndexOf(KeyString) != -1)
+                                    {
+                                        SUCCESS = false;
+                                        break;
+                                    }
+                                    if (info.TAG.IndexOf(KeyWordScan[d]) == -1 && !HasMinus && info.ID.IndexOf(KeyWordScan[d]) == -1 && !HasMinus) { SUCCESS = false; break; }
+                                    else{ wayToFile = info.WAY; }                                    
+                                }
+                                if (SUCCESS)
+                                {
+                                    if (TotalUseMem > UserLimitMemory)
+                                    {
+                                        CallClear();
+                                        MessageBox.Show("Memory end");
+                                        TotalUseMem = 0;
+                                        break;
+                                    }
+                                    if (HMaxLocalImageWindow == 7) { y += 105; HMaxLocalImageWindow = 0; x = 0; FirstImageWindow = true; }
+                                    //создание
+                                    PicBox = new PictureBox();
+                                    try
+                                    {
+                                        PicBox.Image = Image.FromFile(wayToFile);
+                                        PicBox.SizeMode = PictureBoxSizeMode.Zoom;
+                                        PicBox.Name = wayToFile;
+                                        PicBox.Tag = info.ID; //Тэг файла
+                                        this.PicBox.Click += new EventHandler(TegEditMethod);
+                                        this.PicBox.DoubleClick += new EventHandler(FullScrean);
+                                        if (FirstImageWindow) { PicBox.Left = 1; FirstImageWindow = false; HMaxLocalImageWindow++; }
+                                        else { x += 105; PicBox.Left = x; HMaxLocalImageWindow++; }
+                                        PicBox.Top = 10 + y;
+                                        PicBox.Height = 100;
+                                        PicBox.Width = 100;
+                                        PicBox.Visible = true;
+
+                                        Image.FromFile(wayToFile).Dispose();
+                                    }
+                                    catch
+                                    {
+
+                                    }
+
+                                    Invoke((MethodInvoker)delegate
+                                    {
+                                        //размещаем на панели
+                                        ResultPanel.Controls.Add(PicBox);
+                                        linkLabel2.Text = "Total loading arts: " + Convert.ToString(TotalPic++);
+                                        //добавляем в коллекцию 
+                                        pictureBox.Add(PicBox);
+                                        TotalUseMem = GC.GetTotalMemory(true) / 2048; //2.8f;
+                                        linkLabel1.Text = "Total uing memory: " + TotalUseMem.ToString();
+                                    });
+
+                                }
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    //MessageBox.Show(ex.ToString());
+                }
+                //FoundFileInJson(KeyWordScan, out string[] result);
+                //DebugImageCheck(); //Вызывает загрузку артов в imagebox
+
+
+            }
+            else
+            {
+                try
+                {
+                    //MessageBox.Show(UserLimit.ToString());
+                    ImageWorker.RunWorkerAsync();
+                    DebugBTN.Enabled = false;
+                    ResultPanel.AutoScroll = false;
+                }
+                catch (Exception)
+                {
+                }
+            }
+        }
+        private void DebugImageCheck()
+        {
+            //if (source_wayPanel == "")
+            //{
+            //    //GetSetFileTag();
+            //}
+            try
+            {
+                //LoadBitmap(source_wayPanel);
+                //Random rnd = new Random();
+                //DebugBTN.Enabled = false;
+                //ResultPanel.AutoScroll = false;
+                DirectoryInfo FileInfo = new DirectoryInfo(source_way);
+                FileInfo[] Files = FileInfo.GetFiles("*");
+                foreach (FileInfo file in Files)
+                {
+                    if (TotalUseMem > UserLimitMemory || ImageStop)
+                    {
+                        CallClear();
+                        if (!ImageStop) { MessageBox.Show("Memory end"); }
+                        TotalUseMem = 0;
+                        break;
+                    }
+                    try
+                    {
+                        if (HMaxLocalImageWindow == 7) { y += 105; HMaxLocalImageWindow = 0; x = 0; FirstImageWindow = true; }
+                        //создание
+                        PicBox = new PictureBox();
+
+                        try
+                        {
+                            string imageWay = Path.Combine(source_way, file.Name);
+                            PicBox.Image = Image.FromFile(imageWay);
+                            PicBox.SizeMode = PictureBoxSizeMode.Zoom;
+                            PicBox.Name = imageWay;
+                            PicBox.Tag = file.Name; //ID файла
+                            this.PicBox.Click += new EventHandler(TegEditMethod);
+                            this.PicBox.DoubleClick += new EventHandler(FullScrean);
+                            if (FirstImageWindow) { PicBox.Left = 1; FirstImageWindow = false; HMaxLocalImageWindow++; }
+                            else { x += 105; PicBox.Left = x; HMaxLocalImageWindow++; }
+                            PicBox.Top = 10 + y;
+                            PicBox.Height = 100;
+                            PicBox.Width = 100;
+                            PicBox.Visible = true;
+
+                            Image.FromFile(imageWay).Dispose();
+                        }
+                        catch
+                        {
+
+                        }
+
+
+                        Invoke((MethodInvoker)delegate 
+                        {
+                            //размещаем на панели
+                            ResultPanel.Controls.Add(PicBox);
+                            linkLabel2.Text = "Total loading arts: " + Convert.ToString(TotalPic ++);
+                            //добавляем в коллекцию 
+                            pictureBox.Add(PicBox);
+                            TotalUseMem = GC.GetTotalMemory(true) / 1000; 
+                            linkLabel1.Text = "Total uing memory: " + TotalUseMem.ToString();
+                        });
+                     
+
+                        //очистка
+                        id++;
+                        CallClear();
+                        //PicBox.Image.Dispose();
+                        k++;
+                    }
+                    catch (Exception ex)
+                    {
+                        //PicBox.ErrorImage 
+                        MessageBox.Show(Convert.ToString(ex.Message));
+                    }
+                }
+                ImageWorker.CancelAsync();
+                Invoke((MethodInvoker)delegate
+                {
+                    ResultPanel.AutoScroll = true;
+                    DebugBTN.Enabled = true;
+                    ClearBTNimage.Enabled = true;
+                });
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(Convert.ToString(ex.Message));
+                ImageWorker.CancelAsync();
+                Invoke((MethodInvoker)delegate
+                {
+                    ResultPanel.AutoScroll = true;
+                    DebugBTN.Enabled = true;
+                    ClearBTNimage.Enabled = true;
+                });
+            }
+        }
+
+        private void ClearBTNimage_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                PicBox.Left = 1; FirstImageWindow = false; HMaxLocalImageWindow++;
+                ResultPanel.Controls.Clear();
+                pictureBox.Clear();
+                GC.Collect();
+                GC.WaitForPendingFinalizers();
+                GC.Collect();
+                TotalUseMem = 0;
+                TotalPic = 0;
+                linkLabel1.Text = "Total uing memory: 0";
+                linkLabel2.Text = "Total loading arts: 0";
+                TagFiles.Text = "";
+                MegaLinkEdit.Text = "";
+                x = 0;
+                y = 0;
+                k = 0;
+                TotalUseMem = UserLimitMemory * 22;
+            }
+            catch
+            {
+
+            }
+        }
+
+        private void TegEditMethod(object sender, EventArgs e)
+        {
+            /*PictureBox clickedPicBox = sender as PictureBox;
+            ArtistEdit.Text = Convert.ToString(clickedPicBox.Tag);*///call tag
+            PictureBox clickedPicBox = sender as PictureBox;
+            clickedPicBox.BorderStyle = BorderStyle.Fixed3D;
+            GetSetFileTag(Convert.ToString(clickedPicBox.Name), Convert.ToString(clickedPicBox.Tag));
+            //JsonTest(Convert.ToString(clickedPicBox.Tag));
+        }
+        private void FullScrean(object sender, EventArgs e) //Full screan
+        {
+            Size resolution = Screen.PrimaryScreen.Bounds.Size;
+            PictureBox clickedPicBox = sender as PictureBox;
+            //MessageBox.Show(e.ToString());
+            System.Diagnostics.Process.Start("explorer", Convert.ToString(clickedPicBox.Name));
+            //clickedPicBox.Size = Screen.PrimaryScreen.Bounds.Size;
+        }
+
+        private void GetSetFileTag(string way, string info)
+        {
+            string[] Get = new string[1] {"no" };
+            string ways = way;
+            string Info = "";
+            string ArtID = Regex.Replace(info, @"[^0-9].*", ""); //info.Remove(info.IndexOf('_'));
+            string RemoveID = Regex.Replace(info, @"^(?<id>\d+)", "");
+            Remove_Trash(info, out Info);
+            string tag = ways.Remove(ways.IndexOf('.'));
+            //string FoundTags;
+            FileDataBase myCollection = new FileDataBase();
+            myCollection.FileTags = new FilesTag[1];
+            ID = ArtID;
+            SelectFileWay = ways;
+            LoadJsonSaveTag();
+
+            //FoundTags = TagFiles.Text.Split(',');
+
+            //ReadAndAddTagFilesInCollection(ArtID, RemoveID, way, out FoundTags);
+
+            //TagFiles.Text = FoundTags;
+
+            myCollection.FileTags[0] = new FilesTag()
+            {                
+                //Artist = Info,
+                //Tags = Info,
+                //TimeCreate = Convert.ToString(File.GetCreationTime(ways)),
+                MegaLink = ArtID.Length == 0 ? ArtID = "Can't get ID file" : "https://derpibooru.org/" + ArtID,
+                //ImageWay = ways
+            };
+
+            foreach (var files in myCollection.FileTags)
+            {
+                //TagFiles.Text = files.Artist;
+                //TagFiles.Text += files.Tags;
+                //TagFiles.Text += files.TimeCreate;
+                MegaLinkEdit.Text = files.MegaLink;
+                //ImageWayBox.Text = files.ImageWay;
+            }
+        }
+
+
+        private string Remove_Trash(string fileName, out string RemoveTrash)
+        {
+            RemoveTrash = fileName.Replace('+', ' ').Replace('_', ' ').Replace('-', ' ');
+            return RemoveTrash;
+        }
+
+        private void DeleteModTumbler_CheckedChanged(object sender, EventArgs e)
+        {
+            AnotherTest1.Enabled = DeleteModTumbler1.Checked;
+            AnotherTest2.Enabled = DeleteModTumbler2.Checked;
+            AnotherTest3.Enabled = DeleteModTumbler3.Checked;
+            AnotherTest4.Enabled = DeleteModTumbler4.Checked;
+            if (!DeleteModTumbler1.Checked) { CopyOnce1.Checked = true; }
+            if (!DeleteModTumbler2.Checked) { CopyOnce2.Checked = true; }
+            if (!DeleteModTumbler3.Checked) { CopyOnce3.Checked = true; }
+            if (!DeleteModTumbler4.Checked) { CopyOnce4.Checked = true; }
+        }
+
+        private void debugMode(object sender, EventArgs e)
+        {
+            bool DB = DebugMod.Checked == false ? true : false;
+            DebugMod.Checked = DB;
+            AppearanceCatalogeSelect.Visible = DB;
+            debugOptionsToolStripMenuItem.Visible = DB;
+        }
+
+        private void STOPbtn_Click(object sender, EventArgs e)
+        {
+            DebugImageCheck();
+        }
+
+        private void UserLimit_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                UserLimitMemory = Convert.ToInt32(UserLimit.Text);
+                if (Convert.ToInt32(UserLimit.Text) > 8096)
+                {
+                    MessageBox.Show("WARNING! You have exaggerated the maximum permissible value of memory! If you have less than 16gb ram installed on your computer it breaks the program");
+                }
+                if (Convert.ToInt32(UserLimit.Text) <= 0)
+                {
+                    UserLimit.Text = "512";
+                    UserLimitMemory = Convert.ToInt32(UserLimit.Text);
+                };
+            }
+            catch (Exception)
+            {
+                UserLimit.ForeColor = Color.Red;
+                UserLimit.Text = "1024";
+            }
+        }
+
+        private void CallClear ()
+        {
+            GC.Collect(1, GCCollectionMode.Forced);
+            GC.AddMemoryPressure(1);
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
+            GC.Collect();
+        }
+
+        //private string ReadAndAddTagFilesInCollection(string RawID, string RawTag, string WayFile, out string FoundID)
+        //{
+        //    int i = 0;
+        //    string FileTag = "";
+        //    string VOID = "";
+        //    CathErrorReadTag();
+        //    string[] ReadTagFiles = File.ReadAllLines(WayCataloge, Encoding.UTF8);
+
+        //    MessageBox.Show(WayFile);
+
+        //    //if (ReadTagFiles.Length == 0) { SaveTagInFile(RawID, RawTag, WayFile); }
+          
+        //    while(i < ReadTagFiles.Length)
+        //    {               
+        //        if (RawID == Regex.Replace(ReadTagFiles[i], @"[^0-9].*", ""))
+        //        {
+        //            File.ReadAllLines(WayCataloge, Encoding.UTF8);
+        //            FileTag = Regex.Replace(ReadTagFiles[i], @"^(?<id>\d+)", ""); //Remove ID
+        //            LoadingTagOutFile(i, RawID);
+        //            //MessageBox.Show("Нашло");
+        //            FoundID = FileTag;
+        //            return FoundID;
+        //        }
+
+        //        if (i == ReadTagFiles.Length -1 && RawID != Regex.Replace(ReadTagFiles[i], @"[^0-9].*", ""))
+        //        {
+        //            MessageBox.Show("Noting, create new info");
+        //            //SaveTagInFile(RawID, VOID, WayFile);
+        //            FoundID = VOID;
+        //            return FoundID;
+        //        }
+        //        i++;
+        //    }
+        //    FoundID = VOID;
+        //    return VOID;
+        //}
+
+        private void LoadingTagOutFile(int i, string RawID)
+        {
+            string TagFile = "";
+            string[] ReadTagFiles = File.ReadAllLines(WayCataloge, Encoding.UTF8);
+            TagFile = Regex.Replace(ReadTagFiles[i], @"^(?<id>\d+)", "");
+            //ClickArts = i;
+            //ClickArtsID = RawID;
+            //MessageBox.Show("TAG found! This is: " + TagFile);
+            //SaveTagInFile(RawID, TagFile, WayCataloge);
+        }
+
+        //private void SaveTagInFile(string RawID, string RawTag, string WayFile)// Not found
+        //{
+        //    ImageTag imageTag = new ImageTag();
+        //    imageTag.savetags(RawID, RawTag, WayFile);
+        //    imageTag.loadingtag();
+        //    StreamWriter writer = new StreamWriter(WayCataloge, true);
+        //    writer.WriteLine(RawID + " TAG: " + RawTag + " WAY: " + WayFile);
+        //    writer.Close();
+        //}
+
+        private void CathErrorReadTag()
+        {
+            try
+            {
+                File.ReadAllLines(WayCataloge);
+            }
+            catch (Exception)
+            {
+                StreamWriter writer = new StreamWriter(WayCataloge, true);
+                writer.Close();
+            }
+        }
+
+        private void UnlockTagEdit_Click(object sender, EventArgs e)
+        {
+            UnlockLockTagsEdit();
+        }
+
+        private void CancelAndResetTags(object sender, EventArgs e)
+        {
+            UnlockLockTagsEdit();
+            //LoadingTagOutFile(ClickArts, ClickArtsID);
+        }
+
+        private void UnlockLockTagsEdit()
+        {
+            LoadJsonSaveTag();
+            TagFiles.ReadOnly = TagFiles.ReadOnly ? TagFiles.ReadOnly = false : TagFiles.ReadOnly = true;
+            SaveTags.Enabled = !TagFiles.ReadOnly;
+            CancelTagsEdit.Enabled = !TagFiles.ReadOnly;
+        }
+
+        private void LoadJsonSaveTag()
+        {
+            ImageTagLoad imageTagLoad = new ImageTagLoad();
+            imageTagLoad.loadingtag(ID, SelectFileWay, out string Tag, out string IDs/*, HOLE, out HOLE*/);
+            if (Tag == "Fail" || Tag == "") { TagFiles.Text = ""; }
+            else { TagFiles.Text = Tag; MegaLinkEdit.Text = "https://derpibooru.org/" + IDs; }
+        }
+
+        private void FoundFileInJson(string[] scan, out string [] WAYs)
+        {
+            ImageTagLoad imageTagLoad = new ImageTagLoad();
+            imageTagLoad.loadingtag("", "", out string Tag, out string IDs/*, scan, out scan*/);
+            WAYs = scan;
+        }
+
+        private void SaveTags_Click(object sender, EventArgs e)
+        {
+            ImageTag imageTag = new ImageTag();
+            imageTag.savetags(ID, TagFiles.Text.ToLower(), SelectFileWay);
+        }
+
+        private void debugClickToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ImageTag imageTag = new ImageTag();
+            //imageTag.loadingtag();
+        }
+
+        private void openWayFilesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start(@"C:\Users\" + Environment.UserName + @"\AppData\Local\MagicCopy\");
+        }
+
+        private void openDirectoryProgramToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start(Application.StartupPath);
+        }
+
+        private void ExitScanBTN_Click(object sender, EventArgs e)
+        {
+            exitLoop = true;
+            ImageWorker.CancelAsync();
         }
     }
 }
