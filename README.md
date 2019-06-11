@@ -13,7 +13,7 @@ Soft: .Net 4.0
 
 Scan Mode 
 CPU: Athlon X2 240 2.8ghz
-RAM: 8096mb
+RAM: 8196mb
 HDD: 950kb
 GPU: Any 800x600 supporting
 Windows: XP, vista, 7, 8, 8.1, 10 (Not testing on: NT, 2000, ME)
