@@ -3,7 +3,7 @@ This program is designed to quickly sort files, the speed of its work directly d
 Данная программа предназначена для быстрой сортировки файлов, скорость её работы на прямую зависит от скорости HDD\SSD
 
 Default mode
-CPU: Pentium pro 133mhz
+CPU: Pentium pro 180mhz
 RAM: 64mb
 HDD: 950kb
 GPU: Any 800x600 supporting 
