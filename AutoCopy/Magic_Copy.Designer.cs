@@ -43,22 +43,22 @@
             this.Advanced = new System.Windows.Forms.RadioButton();
             this.AdvancedDeletePanel = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
-            this.DeleteAfterTest4 = new System.Windows.Forms.CheckBox();
+            this.DeleteModTumbler4 = new System.Windows.Forms.CheckBox();
             this.AnotherTest4 = new System.Windows.Forms.RadioButton();
             this.CopyOnce4 = new System.Windows.Forms.RadioButton();
             this.DeleteOriginal4 = new System.Windows.Forms.RadioButton();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.DeleteAfterTest3 = new System.Windows.Forms.CheckBox();
+            this.DeleteModTumbler3 = new System.Windows.Forms.CheckBox();
             this.CopyOnce3 = new System.Windows.Forms.RadioButton();
             this.DeleteOriginal3 = new System.Windows.Forms.RadioButton();
             this.AnotherTest3 = new System.Windows.Forms.RadioButton();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.DeleteAfterTest2 = new System.Windows.Forms.CheckBox();
+            this.DeleteModTumbler2 = new System.Windows.Forms.CheckBox();
             this.CopyOnce2 = new System.Windows.Forms.RadioButton();
             this.AnotherTest2 = new System.Windows.Forms.RadioButton();
             this.DeleteOriginal2 = new System.Windows.Forms.RadioButton();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.DeleteAfterTest1 = new System.Windows.Forms.CheckBox();
+            this.DeleteModTumbler1 = new System.Windows.Forms.CheckBox();
             this.CopyOnce1 = new System.Windows.Forms.RadioButton();
             this.AnotherTest1 = new System.Windows.Forms.RadioButton();
             this.DeleteOriginal1 = new System.Windows.Forms.RadioButton();
@@ -92,7 +92,11 @@
             this.loadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.resetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.DebugMod = new System.Windows.Forms.ToolStripMenuItem();
+            this.ScanModePbtn = new System.Windows.Forms.ToolStripMenuItem();
             this.helpInfoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.AppearanceCatalogeSelect = new System.Windows.Forms.ToolStripMenuItem();
+            this.debugClickToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ProgramMod = new System.Windows.Forms.Panel();
             this.panel6 = new System.Windows.Forms.Panel();
             this.ModePanel = new System.Windows.Forms.Panel();
@@ -106,6 +110,21 @@
             this.NewFour_way = new MagicCopy.CueTextBox();
             this.NewTwo_way = new MagicCopy.CueTextBox();
             this.NewThree_way = new MagicCopy.CueTextBox();
+            this.MultiScanPanel = new System.Windows.Forms.Panel();
+            this.panel5 = new System.Windows.Forms.Panel();
+            this.UnlockTagEdit = new System.Windows.Forms.Button();
+            this.CancelTagsEdit = new System.Windows.Forms.Button();
+            this.UserLimit = new MagicCopy.CueTextBox();
+            this.ClearBTNimage = new System.Windows.Forms.Button();
+            this.MegaLinkEdit = new MagicCopy.CueTextBox();
+            this.SaveTags = new System.Windows.Forms.Button();
+            this.linkLabel2 = new System.Windows.Forms.LinkLabel();
+            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.TagFiles = new MagicCopy.CueTextBox();
+            this.ResultPanel = new System.Windows.Forms.Panel();
+            this.KeyWordCatalog = new MagicCopy.CueTextBox();
+            this.DebugBTN = new System.Windows.Forms.Button();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.NewSource_way = new MagicCopy.CueTextBox();
             this.AdvancedDeletePanel.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -120,6 +139,8 @@
             this.ModePanel.SuspendLayout();
             this.ModePanel2.SuspendLayout();
             this.WayPanel.SuspendLayout();
+            this.MultiScanPanel.SuspendLayout();
+            this.panel5.SuspendLayout();
             this.SuspendLayout();
             // 
             // One
@@ -127,7 +148,7 @@
             this.One.Location = new System.Drawing.Point(155, 0);
             this.One.Name = "One";
             this.One.Size = new System.Drawing.Size(27, 23);
-            this.One.TabIndex = 0;
+            this.One.TabIndex = 10;
             this.One.Text = "...";
             this.One.UseVisualStyleBackColor = true;
             this.One.Click += new System.EventHandler(this.One_Click);
@@ -138,7 +159,7 @@
             this.Two.Location = new System.Drawing.Point(342, 0);
             this.Two.Name = "Two";
             this.Two.Size = new System.Drawing.Size(27, 23);
-            this.Two.TabIndex = 1;
+            this.Two.TabIndex = 12;
             this.Two.Text = "...";
             this.Two.UseVisualStyleBackColor = true;
             this.Two.Click += new System.EventHandler(this.Tow_Click);
@@ -149,7 +170,7 @@
             this.Three.Location = new System.Drawing.Point(529, 0);
             this.Three.Name = "Three";
             this.Three.Size = new System.Drawing.Size(27, 23);
-            this.Three.TabIndex = 2;
+            this.Three.TabIndex = 14;
             this.Three.Text = "...";
             this.Three.UseVisualStyleBackColor = true;
             this.Three.Click += new System.EventHandler(this.Three_Click);
@@ -160,7 +181,7 @@
             this.Four.Location = new System.Drawing.Point(715, 0);
             this.Four.Name = "Four";
             this.Four.Size = new System.Drawing.Size(27, 23);
-            this.Four.TabIndex = 3;
+            this.Four.TabIndex = 16;
             this.Four.Text = "...";
             this.Four.UseVisualStyleBackColor = true;
             this.Four.Click += new System.EventHandler(this.Four_Click);
@@ -169,7 +190,7 @@
             // 
             this.Source.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.Source.AutoSize = true;
-            this.Source.Location = new System.Drawing.Point(759, 20);
+            this.Source.Location = new System.Drawing.Point(759, 22);
             this.Source.Name = "Source";
             this.Source.Size = new System.Drawing.Size(206, 23);
             this.Source.TabIndex = 4;
@@ -183,7 +204,7 @@
             this.Apply.Location = new System.Drawing.Point(187, 10);
             this.Apply.Name = "Apply";
             this.Apply.Size = new System.Drawing.Size(100, 23);
-            this.Apply.TabIndex = 5;
+            this.Apply.TabIndex = 25;
             this.Apply.Text = "Start";
             this.HelpShow.SetToolTip(this.Apply, "Start the program.\r\nDisabled for errors in the source folder path!");
             this.Apply.UseVisualStyleBackColor = true;
@@ -195,7 +216,7 @@
             this.Close.Location = new System.Drawing.Point(188, 61);
             this.Close.Name = "Close";
             this.Close.Size = new System.Drawing.Size(100, 23);
-            this.Close.TabIndex = 15;
+            this.Close.TabIndex = 27;
             this.Close.Text = "Close";
             this.Close.UseVisualStyleBackColor = true;
             this.Close.Click += new System.EventHandler(this.Close_Click);
@@ -226,7 +247,7 @@
             this.Default.Location = new System.Drawing.Point(3, 22);
             this.Default.Name = "Default";
             this.Default.Size = new System.Drawing.Size(59, 17);
-            this.Default.TabIndex = 20;
+            this.Default.TabIndex = 4;
             this.Default.TabStop = true;
             this.Default.Text = "Default";
             this.Default.UseVisualStyleBackColor = false;
@@ -240,7 +261,8 @@
             this.Advanced.Location = new System.Drawing.Point(3, 3);
             this.Advanced.Name = "Advanced";
             this.Advanced.Size = new System.Drawing.Size(74, 17);
-            this.Advanced.TabIndex = 21;
+            this.Advanced.TabIndex = 3;
+            this.Advanced.TabStop = true;
             this.Advanced.Text = "Advanced";
             this.Advanced.UseVisualStyleBackColor = false;
             this.Advanced.CheckedChanged += new System.EventHandler(this.Advanced_CheckedChanged);
@@ -265,7 +287,7 @@
             // 
             this.panel4.BackColor = System.Drawing.SystemColors.Window;
             this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel4.Controls.Add(this.DeleteAfterTest4);
+            this.panel4.Controls.Add(this.DeleteModTumbler4);
             this.panel4.Controls.Add(this.AnotherTest4);
             this.panel4.Controls.Add(this.CopyOnce4);
             this.panel4.Controls.Add(this.DeleteOriginal4);
@@ -274,40 +296,41 @@
             this.panel4.Size = new System.Drawing.Size(181, 96);
             this.panel4.TabIndex = 4;
             // 
-            // DeleteAfterTest4
+            // DeleteModTumbler4
             // 
-            this.DeleteAfterTest4.AutoSize = true;
-            this.DeleteAfterTest4.Enabled = false;
-            this.DeleteAfterTest4.Location = new System.Drawing.Point(3, 72);
-            this.DeleteAfterTest4.Name = "DeleteAfterTest4";
-            this.DeleteAfterTest4.Size = new System.Drawing.Size(101, 17);
-            this.DeleteAfterTest4.TabIndex = 4;
-            this.DeleteAfterTest4.Text = "Delete after test";
-            this.DeleteAfterTest4.UseVisualStyleBackColor = true;
+            this.DeleteModTumbler4.AutoSize = true;
+            this.DeleteModTumbler4.Location = new System.Drawing.Point(3, 72);
+            this.DeleteModTumbler4.Name = "DeleteModTumbler4";
+            this.DeleteModTumbler4.Size = new System.Drawing.Size(119, 17);
+            this.DeleteModTumbler4.TabIndex = 45;
+            this.DeleteModTumbler4.Text = "Tumbler delete mod";
+            this.HelpShow.SetToolTip(this.DeleteModTumbler4, "Unlock the delete mode");
+            this.DeleteModTumbler4.UseVisualStyleBackColor = true;
+            this.DeleteModTumbler4.CheckedChanged += new System.EventHandler(this.DeleteModTumbler_CheckedChanged);
             // 
             // AnotherTest4
             // 
             this.AnotherTest4.AutoSize = true;
             this.AnotherTest4.Enabled = false;
-            this.AnotherTest4.Location = new System.Drawing.Point(3, 26);
+            this.AnotherTest4.Location = new System.Drawing.Point(3, 49);
             this.AnotherTest4.Name = "AnotherTest4";
-            this.AnotherTest4.Size = new System.Drawing.Size(86, 17);
-            this.AnotherTest4.TabIndex = 3;
-            this.AnotherTest4.Text = "Another Test";
-            this.HelpShow.SetToolTip(this.AnotherTest4, "Allows you to copy a file to all folders in case of matching keywords");
+            this.AnotherTest4.Size = new System.Drawing.Size(79, 17);
+            this.AnotherTest4.TabIndex = 46;
+            this.AnotherTest4.TabStop = true;
+            this.AnotherTest4.Text = "Delete mod";
+            this.HelpShow.SetToolTip(this.AnotherTest4, "ONLY deletes all files with keywords");
             this.AnotherTest4.UseVisualStyleBackColor = true;
-            this.AnotherTest4.CheckedChanged += new System.EventHandler(this.AnotherTestCheck);
             // 
             // CopyOnce4
             // 
             this.CopyOnce4.AutoSize = true;
             this.CopyOnce4.Checked = true;
-            this.CopyOnce4.Location = new System.Drawing.Point(3, 49);
+            this.CopyOnce4.Location = new System.Drawing.Point(3, 6);
             this.CopyOnce4.Name = "CopyOnce4";
-            this.CopyOnce4.Size = new System.Drawing.Size(78, 17);
-            this.CopyOnce4.TabIndex = 2;
+            this.CopyOnce4.Size = new System.Drawing.Size(76, 17);
+            this.CopyOnce4.TabIndex = 43;
             this.CopyOnce4.TabStop = true;
-            this.CopyOnce4.Text = "Copy Once";
+            this.CopyOnce4.Text = "Copy once";
             this.HelpShow.SetToolTip(this.CopyOnce4, "The program copies the file to the specified folder without deleting the original" +
         "");
             this.CopyOnce4.UseVisualStyleBackColor = true;
@@ -315,10 +338,11 @@
             // DeleteOriginal4
             // 
             this.DeleteOriginal4.AutoSize = true;
-            this.DeleteOriginal4.Location = new System.Drawing.Point(3, 3);
+            this.DeleteOriginal4.Location = new System.Drawing.Point(3, 27);
             this.DeleteOriginal4.Name = "DeleteOriginal4";
             this.DeleteOriginal4.Size = new System.Drawing.Size(120, 17);
-            this.DeleteOriginal4.TabIndex = 0;
+            this.DeleteOriginal4.TabIndex = 44;
+            this.DeleteOriginal4.TabStop = true;
             this.DeleteOriginal4.Text = "Delete after copying";
             this.HelpShow.SetToolTip(this.DeleteOriginal4, "Deleting original files after copying");
             this.DeleteOriginal4.UseVisualStyleBackColor = true;
@@ -327,7 +351,7 @@
             // 
             this.panel3.BackColor = System.Drawing.SystemColors.Window;
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel3.Controls.Add(this.DeleteAfterTest3);
+            this.panel3.Controls.Add(this.DeleteModTumbler3);
             this.panel3.Controls.Add(this.CopyOnce3);
             this.panel3.Controls.Add(this.DeleteOriginal3);
             this.panel3.Controls.Add(this.AnotherTest3);
@@ -336,27 +360,28 @@
             this.panel3.Size = new System.Drawing.Size(181, 96);
             this.panel3.TabIndex = 3;
             // 
-            // DeleteAfterTest3
+            // DeleteModTumbler3
             // 
-            this.DeleteAfterTest3.AutoSize = true;
-            this.DeleteAfterTest3.Enabled = false;
-            this.DeleteAfterTest3.Location = new System.Drawing.Point(3, 72);
-            this.DeleteAfterTest3.Name = "DeleteAfterTest3";
-            this.DeleteAfterTest3.Size = new System.Drawing.Size(101, 17);
-            this.DeleteAfterTest3.TabIndex = 3;
-            this.DeleteAfterTest3.Text = "Delete after test";
-            this.DeleteAfterTest3.UseVisualStyleBackColor = true;
+            this.DeleteModTumbler3.AutoSize = true;
+            this.DeleteModTumbler3.Location = new System.Drawing.Point(3, 72);
+            this.DeleteModTumbler3.Name = "DeleteModTumbler3";
+            this.DeleteModTumbler3.Size = new System.Drawing.Size(119, 17);
+            this.DeleteModTumbler3.TabIndex = 41;
+            this.DeleteModTumbler3.Text = "Tumbler delete mod";
+            this.HelpShow.SetToolTip(this.DeleteModTumbler3, "Unlock the delete mode");
+            this.DeleteModTumbler3.UseVisualStyleBackColor = true;
+            this.DeleteModTumbler3.CheckedChanged += new System.EventHandler(this.DeleteModTumbler_CheckedChanged);
             // 
             // CopyOnce3
             // 
             this.CopyOnce3.AutoSize = true;
             this.CopyOnce3.Checked = true;
-            this.CopyOnce3.Location = new System.Drawing.Point(3, 49);
+            this.CopyOnce3.Location = new System.Drawing.Point(3, 6);
             this.CopyOnce3.Name = "CopyOnce3";
-            this.CopyOnce3.Size = new System.Drawing.Size(78, 17);
-            this.CopyOnce3.TabIndex = 2;
+            this.CopyOnce3.Size = new System.Drawing.Size(76, 17);
+            this.CopyOnce3.TabIndex = 39;
             this.CopyOnce3.TabStop = true;
-            this.CopyOnce3.Text = "Copy Once";
+            this.CopyOnce3.Text = "Copy once";
             this.HelpShow.SetToolTip(this.CopyOnce3, "The program copies the file to the specified folder without deleting the original" +
         "");
             this.CopyOnce3.UseVisualStyleBackColor = true;
@@ -364,10 +389,11 @@
             // DeleteOriginal3
             // 
             this.DeleteOriginal3.AutoSize = true;
-            this.DeleteOriginal3.Location = new System.Drawing.Point(3, 3);
+            this.DeleteOriginal3.Location = new System.Drawing.Point(3, 27);
             this.DeleteOriginal3.Name = "DeleteOriginal3";
             this.DeleteOriginal3.Size = new System.Drawing.Size(120, 17);
-            this.DeleteOriginal3.TabIndex = 0;
+            this.DeleteOriginal3.TabIndex = 40;
+            this.DeleteOriginal3.TabStop = true;
             this.DeleteOriginal3.Text = "Delete after copying";
             this.HelpShow.SetToolTip(this.DeleteOriginal3, "Deleting original files after copying");
             this.DeleteOriginal3.UseVisualStyleBackColor = true;
@@ -376,21 +402,21 @@
             // 
             this.AnotherTest3.AutoSize = true;
             this.AnotherTest3.Enabled = false;
-            this.AnotherTest3.Location = new System.Drawing.Point(3, 26);
+            this.AnotherTest3.Location = new System.Drawing.Point(3, 49);
             this.AnotherTest3.Name = "AnotherTest3";
-            this.AnotherTest3.Size = new System.Drawing.Size(86, 17);
-            this.AnotherTest3.TabIndex = 1;
-            this.AnotherTest3.Text = "Another Test";
-            this.HelpShow.SetToolTip(this.AnotherTest3, "Allows you to copy a file to all folders in case of matching keywords");
+            this.AnotherTest3.Size = new System.Drawing.Size(79, 17);
+            this.AnotherTest3.TabIndex = 42;
+            this.AnotherTest3.TabStop = true;
+            this.AnotherTest3.Text = "Delete mod";
+            this.HelpShow.SetToolTip(this.AnotherTest3, "ONLY deletes all files with keywords");
             this.AnotherTest3.UseVisualStyleBackColor = true;
-            this.AnotherTest3.CheckedChanged += new System.EventHandler(this.AnotherTestCheck);
             // 
             // panel2
             // 
             this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.panel2.BackColor = System.Drawing.SystemColors.Window;
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel2.Controls.Add(this.DeleteAfterTest2);
+            this.panel2.Controls.Add(this.DeleteModTumbler2);
             this.panel2.Controls.Add(this.CopyOnce2);
             this.panel2.Controls.Add(this.AnotherTest2);
             this.panel2.Controls.Add(this.DeleteOriginal2);
@@ -399,27 +425,28 @@
             this.panel2.Size = new System.Drawing.Size(181, 96);
             this.panel2.TabIndex = 2;
             // 
-            // DeleteAfterTest2
+            // DeleteModTumbler2
             // 
-            this.DeleteAfterTest2.AutoSize = true;
-            this.DeleteAfterTest2.Enabled = false;
-            this.DeleteAfterTest2.Location = new System.Drawing.Point(3, 72);
-            this.DeleteAfterTest2.Name = "DeleteAfterTest2";
-            this.DeleteAfterTest2.Size = new System.Drawing.Size(101, 17);
-            this.DeleteAfterTest2.TabIndex = 3;
-            this.DeleteAfterTest2.Text = "Delete after test";
-            this.DeleteAfterTest2.UseVisualStyleBackColor = true;
+            this.DeleteModTumbler2.AutoSize = true;
+            this.DeleteModTumbler2.Location = new System.Drawing.Point(3, 72);
+            this.DeleteModTumbler2.Name = "DeleteModTumbler2";
+            this.DeleteModTumbler2.Size = new System.Drawing.Size(119, 17);
+            this.DeleteModTumbler2.TabIndex = 37;
+            this.DeleteModTumbler2.Text = "Tumbler delete mod";
+            this.HelpShow.SetToolTip(this.DeleteModTumbler2, "Unlock the delete mode");
+            this.DeleteModTumbler2.UseVisualStyleBackColor = true;
+            this.DeleteModTumbler2.CheckedChanged += new System.EventHandler(this.DeleteModTumbler_CheckedChanged);
             // 
             // CopyOnce2
             // 
             this.CopyOnce2.AutoSize = true;
             this.CopyOnce2.Checked = true;
-            this.CopyOnce2.Location = new System.Drawing.Point(3, 49);
+            this.CopyOnce2.Location = new System.Drawing.Point(3, 6);
             this.CopyOnce2.Name = "CopyOnce2";
-            this.CopyOnce2.Size = new System.Drawing.Size(78, 17);
-            this.CopyOnce2.TabIndex = 2;
+            this.CopyOnce2.Size = new System.Drawing.Size(76, 17);
+            this.CopyOnce2.TabIndex = 35;
             this.CopyOnce2.TabStop = true;
-            this.CopyOnce2.Text = "Copy Once";
+            this.CopyOnce2.Text = "Copy once";
             this.HelpShow.SetToolTip(this.CopyOnce2, "The program copies the file to the specified folder without deleting the original" +
         "");
             this.CopyOnce2.UseVisualStyleBackColor = true;
@@ -428,22 +455,23 @@
             // 
             this.AnotherTest2.AutoSize = true;
             this.AnotherTest2.Enabled = false;
-            this.AnotherTest2.Location = new System.Drawing.Point(3, 26);
+            this.AnotherTest2.Location = new System.Drawing.Point(3, 49);
             this.AnotherTest2.Name = "AnotherTest2";
-            this.AnotherTest2.Size = new System.Drawing.Size(86, 17);
-            this.AnotherTest2.TabIndex = 1;
-            this.AnotherTest2.Text = "Another Test";
-            this.HelpShow.SetToolTip(this.AnotherTest2, "Allows you to copy a file to all folders in case of matching keywords");
+            this.AnotherTest2.Size = new System.Drawing.Size(79, 17);
+            this.AnotherTest2.TabIndex = 38;
+            this.AnotherTest2.TabStop = true;
+            this.AnotherTest2.Text = "Delete mod";
+            this.HelpShow.SetToolTip(this.AnotherTest2, "ONLY deletes all files with keywords");
             this.AnotherTest2.UseVisualStyleBackColor = true;
-            this.AnotherTest2.CheckedChanged += new System.EventHandler(this.AnotherTestCheck);
             // 
             // DeleteOriginal2
             // 
             this.DeleteOriginal2.AutoSize = true;
-            this.DeleteOriginal2.Location = new System.Drawing.Point(3, 3);
+            this.DeleteOriginal2.Location = new System.Drawing.Point(3, 27);
             this.DeleteOriginal2.Name = "DeleteOriginal2";
             this.DeleteOriginal2.Size = new System.Drawing.Size(120, 17);
-            this.DeleteOriginal2.TabIndex = 0;
+            this.DeleteOriginal2.TabIndex = 36;
+            this.DeleteOriginal2.TabStop = true;
             this.DeleteOriginal2.Text = "Delete after copying";
             this.HelpShow.SetToolTip(this.DeleteOriginal2, "Deleting original files after copying");
             this.DeleteOriginal2.UseVisualStyleBackColor = true;
@@ -453,36 +481,37 @@
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.panel1.BackColor = System.Drawing.SystemColors.Window;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel1.Controls.Add(this.DeleteAfterTest1);
+            this.panel1.Controls.Add(this.DeleteModTumbler1);
             this.panel1.Controls.Add(this.CopyOnce1);
             this.panel1.Controls.Add(this.AnotherTest1);
             this.panel1.Controls.Add(this.DeleteOriginal1);
             this.panel1.Location = new System.Drawing.Point(-1, -1);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(181, 96);
-            this.panel1.TabIndex = 1;
+            this.panel1.TabIndex = 99;
             // 
-            // DeleteAfterTest1
+            // DeleteModTumbler1
             // 
-            this.DeleteAfterTest1.AutoSize = true;
-            this.DeleteAfterTest1.Enabled = false;
-            this.DeleteAfterTest1.Location = new System.Drawing.Point(3, 72);
-            this.DeleteAfterTest1.Name = "DeleteAfterTest1";
-            this.DeleteAfterTest1.Size = new System.Drawing.Size(101, 17);
-            this.DeleteAfterTest1.TabIndex = 3;
-            this.DeleteAfterTest1.Text = "Delete after test";
-            this.DeleteAfterTest1.UseVisualStyleBackColor = true;
+            this.DeleteModTumbler1.AutoSize = true;
+            this.DeleteModTumbler1.Location = new System.Drawing.Point(3, 72);
+            this.DeleteModTumbler1.Name = "DeleteModTumbler1";
+            this.DeleteModTumbler1.Size = new System.Drawing.Size(119, 17);
+            this.DeleteModTumbler1.TabIndex = 33;
+            this.DeleteModTumbler1.Text = "Tumbler delete mod";
+            this.HelpShow.SetToolTip(this.DeleteModTumbler1, "Unlock the delete mode");
+            this.DeleteModTumbler1.UseVisualStyleBackColor = true;
+            this.DeleteModTumbler1.CheckedChanged += new System.EventHandler(this.DeleteModTumbler_CheckedChanged);
             // 
             // CopyOnce1
             // 
             this.CopyOnce1.AutoSize = true;
             this.CopyOnce1.Checked = true;
-            this.CopyOnce1.Location = new System.Drawing.Point(3, 49);
+            this.CopyOnce1.Location = new System.Drawing.Point(3, 6);
             this.CopyOnce1.Name = "CopyOnce1";
-            this.CopyOnce1.Size = new System.Drawing.Size(78, 17);
-            this.CopyOnce1.TabIndex = 2;
+            this.CopyOnce1.Size = new System.Drawing.Size(76, 17);
+            this.CopyOnce1.TabIndex = 31;
             this.CopyOnce1.TabStop = true;
-            this.CopyOnce1.Text = "Copy Once";
+            this.CopyOnce1.Text = "Copy once";
             this.HelpShow.SetToolTip(this.CopyOnce1, "The program copies the file to the specified folder without deleting the original" +
         "");
             this.CopyOnce1.UseVisualStyleBackColor = true;
@@ -491,22 +520,23 @@
             // 
             this.AnotherTest1.AutoSize = true;
             this.AnotherTest1.Enabled = false;
-            this.AnotherTest1.Location = new System.Drawing.Point(3, 26);
+            this.AnotherTest1.Location = new System.Drawing.Point(3, 49);
             this.AnotherTest1.Name = "AnotherTest1";
-            this.AnotherTest1.Size = new System.Drawing.Size(86, 17);
-            this.AnotherTest1.TabIndex = 1;
-            this.AnotherTest1.Text = "Another Test";
-            this.HelpShow.SetToolTip(this.AnotherTest1, "Allows you to copy a file to all folders in case of matching keywords");
+            this.AnotherTest1.Size = new System.Drawing.Size(79, 17);
+            this.AnotherTest1.TabIndex = 34;
+            this.AnotherTest1.TabStop = true;
+            this.AnotherTest1.Text = "Delete mod";
+            this.HelpShow.SetToolTip(this.AnotherTest1, "ONLY deletes all files with keywords");
             this.AnotherTest1.UseVisualStyleBackColor = true;
-            this.AnotherTest1.CheckedChanged += new System.EventHandler(this.AnotherTestCheck);
             // 
             // DeleteOriginal1
             // 
             this.DeleteOriginal1.AutoSize = true;
-            this.DeleteOriginal1.Location = new System.Drawing.Point(3, 3);
+            this.DeleteOriginal1.Location = new System.Drawing.Point(3, 27);
             this.DeleteOriginal1.Name = "DeleteOriginal1";
             this.DeleteOriginal1.Size = new System.Drawing.Size(120, 17);
-            this.DeleteOriginal1.TabIndex = 0;
+            this.DeleteOriginal1.TabIndex = 32;
+            this.DeleteOriginal1.TabStop = true;
             this.DeleteOriginal1.Text = "Delete after copying";
             this.HelpShow.SetToolTip(this.DeleteOriginal1, "Deleting original files after copying");
             this.DeleteOriginal1.UseVisualStyleBackColor = true;
@@ -517,7 +547,7 @@
             this.Stop.Location = new System.Drawing.Point(187, 36);
             this.Stop.Name = "Stop";
             this.Stop.Size = new System.Drawing.Size(100, 23);
-            this.Stop.TabIndex = 23;
+            this.Stop.TabIndex = 26;
             this.Stop.Text = "Stop";
             this.Stop.UseVisualStyleBackColor = true;
             this.Stop.Click += new System.EventHandler(this.Stop_Click);
@@ -542,19 +572,19 @@
             this.DeleteAfterTestDefault.Enabled = false;
             this.DeleteAfterTestDefault.Location = new System.Drawing.Point(190, 15);
             this.DeleteAfterTestDefault.Name = "DeleteAfterTestDefault";
-            this.DeleteAfterTestDefault.Size = new System.Drawing.Size(101, 17);
-            this.DeleteAfterTestDefault.TabIndex = 28;
-            this.DeleteAfterTestDefault.Text = "Delete after test";
+            this.DeleteAfterTestDefault.Size = new System.Drawing.Size(119, 17);
+            this.DeleteAfterTestDefault.TabIndex = 7;
+            this.DeleteAfterTestDefault.Text = "Tumbler delete mod";
             this.DeleteAfterTestDefault.UseVisualStyleBackColor = true;
             // 
             // CopyOnceDefault
             // 
             this.CopyOnceDefault.AutoSize = true;
             this.CopyOnceDefault.Checked = true;
-            this.CopyOnceDefault.Location = new System.Drawing.Point(3, 34);
+            this.CopyOnceDefault.Location = new System.Drawing.Point(3, 14);
             this.CopyOnceDefault.Name = "CopyOnceDefault";
             this.CopyOnceDefault.Size = new System.Drawing.Size(159, 17);
-            this.CopyOnceDefault.TabIndex = 27;
+            this.CopyOnceDefault.TabIndex = 5;
             this.CopyOnceDefault.TabStop = true;
             this.CopyOnceDefault.Text = "Copy Once (1 file to 1 folder)";
             this.HelpShow.SetToolTip(this.CopyOnceDefault, "The program copies the file to the specified folder without deleting the original" +
@@ -564,10 +594,11 @@
             // DeleteOriginalFile
             // 
             this.DeleteOriginalFile.AutoSize = true;
-            this.DeleteOriginalFile.Location = new System.Drawing.Point(3, 14);
+            this.DeleteOriginalFile.Location = new System.Drawing.Point(3, 36);
             this.DeleteOriginalFile.Name = "DeleteOriginalFile";
             this.DeleteOriginalFile.Size = new System.Drawing.Size(127, 17);
-            this.DeleteOriginalFile.TabIndex = 26;
+            this.DeleteOriginalFile.TabIndex = 6;
+            this.DeleteOriginalFile.TabStop = true;
             this.DeleteOriginalFile.Text = "Delete All Original File";
             this.HelpShow.SetToolTip(this.DeleteOriginalFile, "Deleting original files after copying");
             this.DeleteOriginalFile.UseVisualStyleBackColor = true;
@@ -576,11 +607,12 @@
             // 
             this.AnotherTestDefault.AutoSize = true;
             this.AnotherTestDefault.Enabled = false;
-            this.AnotherTestDefault.Location = new System.Drawing.Point(3, 57);
+            this.AnotherTestDefault.Location = new System.Drawing.Point(3, 60);
             this.AnotherTestDefault.Name = "AnotherTestDefault";
-            this.AnotherTestDefault.Size = new System.Drawing.Size(86, 17);
-            this.AnotherTestDefault.TabIndex = 25;
-            this.AnotherTestDefault.Text = "Another Test";
+            this.AnotherTestDefault.Size = new System.Drawing.Size(79, 17);
+            this.AnotherTestDefault.TabIndex = 8;
+            this.AnotherTestDefault.TabStop = true;
+            this.AnotherTestDefault.Text = "Delete mod";
             this.HelpShow.SetToolTip(this.AnotherTestDefault, "Allows you to copy a file to all folders in case of matching keywords");
             this.AnotherTestDefault.UseVisualStyleBackColor = true;
             this.AnotherTestDefault.CheckedChanged += new System.EventHandler(this.AnotherTestDelault);
@@ -605,6 +637,7 @@
             this.Ukrainian.Name = "Ukrainian";
             this.Ukrainian.Size = new System.Drawing.Size(90, 17);
             this.Ukrainian.TabIndex = 2;
+            this.Ukrainian.TabStop = true;
             this.Ukrainian.Text = "Український";
             this.Ukrainian.UseVisualStyleBackColor = true;
             this.Ukrainian.CheckedChanged += new System.EventHandler(this.Ukrainian_CheckedChanged);
@@ -616,6 +649,7 @@
             this.Russian.Name = "Russian";
             this.Russian.Size = new System.Drawing.Size(67, 17);
             this.Russian.TabIndex = 1;
+            this.Russian.TabStop = true;
             this.Russian.Text = "Русский";
             this.Russian.UseVisualStyleBackColor = true;
             this.Russian.CheckedChanged += new System.EventHandler(this.Russian_CheckedChanged);
@@ -641,7 +675,7 @@
             this.AutoLoading.Name = "AutoLoading";
             this.AutoLoading.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.AutoLoading.Size = new System.Drawing.Size(179, 17);
-            this.AutoLoading.TabIndex = 29;
+            this.AutoLoading.TabIndex = 30;
             this.AutoLoading.Text = "Auto loading settings";
             this.AutoLoading.UseVisualStyleBackColor = true;
             // 
@@ -652,7 +686,7 @@
             this.AutoCheck.Name = "AutoCheck";
             this.AutoCheck.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.AutoCheck.Size = new System.Drawing.Size(179, 17);
-            this.AutoCheck.TabIndex = 31;
+            this.AutoCheck.TabIndex = 29;
             this.AutoCheck.Text = "Automatic tracking";
             this.HelpShow.SetToolTip(this.AutoCheck, resources.GetString("AutoCheck.ToolTip"));
             this.AutoCheck.UseVisualStyleBackColor = true;
@@ -670,7 +704,7 @@
             this.Clone1.Location = new System.Drawing.Point(2, 3);
             this.Clone1.Name = "Clone1";
             this.Clone1.Size = new System.Drawing.Size(100, 20);
-            this.Clone1.TabIndex = 34;
+            this.Clone1.TabIndex = 17;
             this.Clone1.Text = "Clone";
             this.HelpShow.SetToolTip(this.Clone1, "Clones the first or any non-empty path");
             this.Clone1.UseVisualStyleBackColor = true;
@@ -681,7 +715,7 @@
             this.Clone2.Location = new System.Drawing.Point(2, 29);
             this.Clone2.Name = "Clone2";
             this.Clone2.Size = new System.Drawing.Size(100, 20);
-            this.Clone2.TabIndex = 35;
+            this.Clone2.TabIndex = 23;
             this.Clone2.Text = "Clone";
             this.HelpShow.SetToolTip(this.Clone2, "Clones the first keyword or any non-empty keyword");
             this.Clone2.UseVisualStyleBackColor = true;
@@ -692,7 +726,7 @@
             this.BTNClear1.Location = new System.Drawing.Point(108, 3);
             this.BTNClear1.Name = "BTNClear1";
             this.BTNClear1.Size = new System.Drawing.Size(100, 20);
-            this.BTNClear1.TabIndex = 36;
+            this.BTNClear1.TabIndex = 18;
             this.BTNClear1.Text = "Clear";
             this.HelpShow.SetToolTip(this.BTNClear1, "Clears path fields");
             this.BTNClear1.UseVisualStyleBackColor = true;
@@ -703,7 +737,7 @@
             this.BTNClear2.Location = new System.Drawing.Point(108, 29);
             this.BTNClear2.Name = "BTNClear2";
             this.BTNClear2.Size = new System.Drawing.Size(100, 20);
-            this.BTNClear2.TabIndex = 37;
+            this.BTNClear2.TabIndex = 24;
             this.BTNClear2.Text = "Clear";
             this.HelpShow.SetToolTip(this.BTNClear2, "Clears the key word fields");
             this.BTNClear2.UseVisualStyleBackColor = true;
@@ -718,9 +752,9 @@
             this.Notifications.Name = "Notifications";
             this.Notifications.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.Notifications.Size = new System.Drawing.Size(179, 17);
-            this.Notifications.TabIndex = 38;
+            this.Notifications.TabIndex = 28;
             this.Notifications.Text = "Show notifications";
-            this.HelpShow.SetToolTip(this.Notifications, "ProgressBar is broken, this alternative notifies you when copying is complete");
+            this.HelpShow.SetToolTip(this.Notifications, "Show statistic");
             this.Notifications.UseVisualStyleBackColor = true;
             // 
             // CullingFolder
@@ -776,7 +810,7 @@
             this.BTNinfo.Location = new System.Drawing.Point(11, 284);
             this.BTNinfo.Name = "BTNinfo";
             this.BTNinfo.Size = new System.Drawing.Size(182, 23);
-            this.BTNinfo.TabIndex = 32;
+            this.BTNinfo.TabIndex = 47;
             this.BTNinfo.Text = "Info";
             this.BTNinfo.UseVisualStyleBackColor = true;
             this.BTNinfo.Click += new System.EventHandler(this.BTNinfo_Click);
@@ -792,13 +826,16 @@
             this.InfoRichTextBox.TabIndex = 33;
             this.InfoRichTextBox.Text = resources.GetString("InfoRichTextBox.Text");
             this.InfoRichTextBox.Visible = false;
-            this.InfoRichTextBox.TextChanged += new System.EventHandler(this.InfoRichTextBox_TextChanged);
+            this.InfoRichTextBox.TextChanged += new System.EventHandler(this.helpInfoToolStripMenuItem_Click);
             // 
             // FastMenu
             // 
             this.FastMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
-            this.helpInfoToolStripMenuItem});
+            this.ScanModePbtn,
+            this.helpInfoToolStripMenuItem,
+            this.AppearanceCatalogeSelect,
+            this.debugClickToolStripMenuItem});
             this.FastMenu.Location = new System.Drawing.Point(0, 0);
             this.FastMenu.Name = "FastMenu";
             this.FastMenu.Size = new System.Drawing.Size(978, 24);
@@ -811,7 +848,8 @@
             this.saveToolStripMenuItem,
             this.loadToolStripMenuItem,
             this.resetToolStripMenuItem,
-            this.closeToolStripMenuItem});
+            this.closeToolStripMenuItem,
+            this.DebugMod});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
@@ -819,39 +857,64 @@
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.SaveSetting);
             // 
             // loadToolStripMenuItem
             // 
             this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
-            this.loadToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.loadToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.loadToolStripMenuItem.Text = "Load";
             this.loadToolStripMenuItem.Click += new System.EventHandler(this.LoadingSetting_Click);
             // 
             // resetToolStripMenuItem
             // 
             this.resetToolStripMenuItem.Name = "resetToolStripMenuItem";
-            this.resetToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.resetToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.resetToolStripMenuItem.Text = "Reset";
             this.resetToolStripMenuItem.Click += new System.EventHandler(this.ResetSetting_Click);
             // 
             // closeToolStripMenuItem
             // 
             this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
-            this.closeToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.closeToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.closeToolStripMenuItem.Text = "Close";
             this.closeToolStripMenuItem.Click += new System.EventHandler(this.Close_Click);
             // 
+            // DebugMod
+            // 
+            this.DebugMod.Name = "DebugMod";
+            this.DebugMod.Size = new System.Drawing.Size(143, 22);
+            this.DebugMod.Text = "Debug Mode";
+            this.DebugMod.Click += new System.EventHandler(this.debugMode);
+            // 
+            // ScanModePbtn
+            // 
+            this.ScanModePbtn.Name = "ScanModePbtn";
+            this.ScanModePbtn.Size = new System.Drawing.Size(73, 20);
+            this.ScanModePbtn.Text = "Collection";
+            this.ScanModePbtn.Click += new System.EventHandler(this.MultiP);
+            // 
             // helpInfoToolStripMenuItem
             // 
-            this.helpInfoToolStripMenuItem.Enabled = false;
             this.helpInfoToolStripMenuItem.Name = "helpInfoToolStripMenuItem";
-            this.helpInfoToolStripMenuItem.Size = new System.Drawing.Size(68, 20);
-            this.helpInfoToolStripMenuItem.Text = "Help info";
-            this.helpInfoToolStripMenuItem.Visible = false;
+            this.helpInfoToolStripMenuItem.Size = new System.Drawing.Size(111, 20);
+            this.helpInfoToolStripMenuItem.Text = "\"Collection\" Help";
             this.helpInfoToolStripMenuItem.Click += new System.EventHandler(this.helpInfoToolStripMenuItem_Click);
+            // 
+            // AppearanceCatalogeSelect
+            // 
+            this.AppearanceCatalogeSelect.Name = "AppearanceCatalogeSelect";
+            this.AppearanceCatalogeSelect.Size = new System.Drawing.Size(82, 20);
+            this.AppearanceCatalogeSelect.Text = "Appearance";
+            // 
+            // debugClickToolStripMenuItem
+            // 
+            this.debugClickToolStripMenuItem.Name = "debugClickToolStripMenuItem";
+            this.debugClickToolStripMenuItem.Size = new System.Drawing.Size(80, 20);
+            this.debugClickToolStripMenuItem.Text = "DebugClick";
+            this.debugClickToolStripMenuItem.Click += new System.EventHandler(this.debugClickToolStripMenuItem_Click);
             // 
             // ProgramMod
             // 
@@ -906,6 +969,7 @@
             this.ModePanel2.Name = "ModePanel2";
             this.ModePanel2.Size = new System.Drawing.Size(209, 96);
             this.ModePanel2.TabIndex = 54;
+            this.ModePanel2.Visible = false;
             // 
             // WayPanel
             // 
@@ -934,7 +998,7 @@
             this.NewKey_Four.Location = new System.Drawing.Point(561, 31);
             this.NewKey_Four.Name = "NewKey_Four";
             this.NewKey_Four.Size = new System.Drawing.Size(181, 20);
-            this.NewKey_Four.TabIndex = 51;
+            this.NewKey_Four.TabIndex = 22;
             // 
             // NewKey_Three
             // 
@@ -943,7 +1007,7 @@
             this.NewKey_Three.Location = new System.Drawing.Point(375, 31);
             this.NewKey_Three.Name = "NewKey_Three";
             this.NewKey_Three.Size = new System.Drawing.Size(181, 20);
-            this.NewKey_Three.TabIndex = 50;
+            this.NewKey_Three.TabIndex = 21;
             // 
             // NewKey_Two
             // 
@@ -952,7 +1016,7 @@
             this.NewKey_Two.Location = new System.Drawing.Point(187, 31);
             this.NewKey_Two.Name = "NewKey_Two";
             this.NewKey_Two.Size = new System.Drawing.Size(181, 20);
-            this.NewKey_Two.TabIndex = 49;
+            this.NewKey_Two.TabIndex = 20;
             // 
             // NewKey_One
             // 
@@ -961,7 +1025,7 @@
             this.NewKey_One.Location = new System.Drawing.Point(0, 31);
             this.NewKey_One.Name = "NewKey_One";
             this.NewKey_One.Size = new System.Drawing.Size(181, 20);
-            this.NewKey_One.TabIndex = 48;
+            this.NewKey_One.TabIndex = 19;
             // 
             // NewOne_way
             // 
@@ -970,7 +1034,7 @@
             this.NewOne_way.Location = new System.Drawing.Point(0, 2);
             this.NewOne_way.Name = "NewOne_way";
             this.NewOne_way.Size = new System.Drawing.Size(149, 20);
-            this.NewOne_way.TabIndex = 43;
+            this.NewOne_way.TabIndex = 9;
             this.NewOne_way.TextChanged += new System.EventHandler(this.One_way_TextChanged);
             // 
             // NewFour_way
@@ -980,7 +1044,7 @@
             this.NewFour_way.Location = new System.Drawing.Point(561, 2);
             this.NewFour_way.Name = "NewFour_way";
             this.NewFour_way.Size = new System.Drawing.Size(149, 20);
-            this.NewFour_way.TabIndex = 47;
+            this.NewFour_way.TabIndex = 15;
             this.NewFour_way.TextChanged += new System.EventHandler(this.Four_way_TextChanged);
             // 
             // NewTwo_way
@@ -990,7 +1054,7 @@
             this.NewTwo_way.Location = new System.Drawing.Point(187, 2);
             this.NewTwo_way.Name = "NewTwo_way";
             this.NewTwo_way.Size = new System.Drawing.Size(149, 20);
-            this.NewTwo_way.TabIndex = 45;
+            this.NewTwo_way.TabIndex = 11;
             this.NewTwo_way.TextChanged += new System.EventHandler(this.Tow_way_TextChanged);
             // 
             // NewThree_way
@@ -1000,17 +1064,170 @@
             this.NewThree_way.Location = new System.Drawing.Point(375, 2);
             this.NewThree_way.Name = "NewThree_way";
             this.NewThree_way.Size = new System.Drawing.Size(149, 20);
-            this.NewThree_way.TabIndex = 46;
+            this.NewThree_way.TabIndex = 13;
             this.NewThree_way.TextChanged += new System.EventHandler(this.Three_way_TextChanged);
+            // 
+            // MultiScanPanel
+            // 
+            this.MultiScanPanel.AutoSize = true;
+            this.MultiScanPanel.Controls.Add(this.panel5);
+            this.MultiScanPanel.Controls.Add(this.ResultPanel);
+            this.MultiScanPanel.Controls.Add(this.KeyWordCatalog);
+            this.MultiScanPanel.Controls.Add(this.DebugBTN);
+            this.MultiScanPanel.Location = new System.Drawing.Point(11, 45);
+            this.MultiScanPanel.Name = "MultiScanPanel";
+            this.MultiScanPanel.Size = new System.Drawing.Size(967, 414);
+            this.MultiScanPanel.TabIndex = 56;
+            this.MultiScanPanel.Visible = false;
+            // 
+            // panel5
+            // 
+            this.panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel5.Controls.Add(this.UnlockTagEdit);
+            this.panel5.Controls.Add(this.CancelTagsEdit);
+            this.panel5.Controls.Add(this.UserLimit);
+            this.panel5.Controls.Add(this.ClearBTNimage);
+            this.panel5.Controls.Add(this.MegaLinkEdit);
+            this.panel5.Controls.Add(this.SaveTags);
+            this.panel5.Controls.Add(this.linkLabel2);
+            this.panel5.Controls.Add(this.linkLabel1);
+            this.panel5.Controls.Add(this.TagFiles);
+            this.panel5.Location = new System.Drawing.Point(754, 1);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(210, 410);
+            this.panel5.TabIndex = 48;
+            // 
+            // UnlockTagEdit
+            // 
+            this.UnlockTagEdit.Location = new System.Drawing.Point(86, 6);
+            this.UnlockTagEdit.Name = "UnlockTagEdit";
+            this.UnlockTagEdit.Size = new System.Drawing.Size(37, 21);
+            this.UnlockTagEdit.TabIndex = 14;
+            this.UnlockTagEdit.Text = "🔒";
+            this.UnlockTagEdit.UseVisualStyleBackColor = true;
+            this.UnlockTagEdit.Click += new System.EventHandler(this.UnlockTagEdit_Click);
+            // 
+            // CancelTagsEdit
+            // 
+            this.CancelTagsEdit.Enabled = false;
+            this.CancelTagsEdit.Location = new System.Drawing.Point(129, 4);
+            this.CancelTagsEdit.Name = "CancelTagsEdit";
+            this.CancelTagsEdit.Size = new System.Drawing.Size(75, 23);
+            this.CancelTagsEdit.TabIndex = 13;
+            this.CancelTagsEdit.Text = "Cancel";
+            this.CancelTagsEdit.UseVisualStyleBackColor = true;
+            this.CancelTagsEdit.Click += new System.EventHandler(this.UnlockTagEdit_Click);
+            // 
+            // UserLimit
+            // 
+            this.UserLimit.Cue = "Limit memory RAM";
+            this.UserLimit.Location = new System.Drawing.Point(3, 342);
+            this.UserLimit.Name = "UserLimit";
+            this.UserLimit.Size = new System.Drawing.Size(201, 20);
+            this.UserLimit.TabIndex = 5;
+            this.UserLimit.Text = "2048";
+            this.UserLimit.TextChanged += new System.EventHandler(this.UserLimit_TextChanged);
+            // 
+            // ClearBTNimage
+            // 
+            this.ClearBTNimage.Location = new System.Drawing.Point(135, 370);
+            this.ClearBTNimage.Name = "ClearBTNimage";
+            this.ClearBTNimage.Size = new System.Drawing.Size(75, 23);
+            this.ClearBTNimage.TabIndex = 1;
+            this.ClearBTNimage.Text = "Clear RAM";
+            this.ClearBTNimage.UseVisualStyleBackColor = true;
+            this.ClearBTNimage.Click += new System.EventHandler(this.ClearBTNimage_Click);
+            // 
+            // MegaLinkEdit
+            // 
+            this.MegaLinkEdit.Cue = "Link original";
+            this.MegaLinkEdit.Location = new System.Drawing.Point(3, 316);
+            this.MegaLinkEdit.Name = "MegaLinkEdit";
+            this.MegaLinkEdit.Size = new System.Drawing.Size(201, 20);
+            this.MegaLinkEdit.TabIndex = 4;
+            // 
+            // SaveTags
+            // 
+            this.SaveTags.Enabled = false;
+            this.SaveTags.Location = new System.Drawing.Point(4, 4);
+            this.SaveTags.Name = "SaveTags";
+            this.SaveTags.Size = new System.Drawing.Size(75, 23);
+            this.SaveTags.TabIndex = 10;
+            this.SaveTags.Text = "Save Tags";
+            this.SaveTags.UseVisualStyleBackColor = true;
+            this.SaveTags.Click += new System.EventHandler(this.SaveTags_Click);
+            // 
+            // linkLabel2
+            // 
+            this.linkLabel2.AutoSize = true;
+            this.linkLabel2.Location = new System.Drawing.Point(3, 384);
+            this.linkLabel2.Name = "linkLabel2";
+            this.linkLabel2.Size = new System.Drawing.Size(100, 13);
+            this.linkLabel2.TabIndex = 8;
+            this.linkLabel2.TabStop = true;
+            this.linkLabel2.Text = "Total loading arts: 0";
+            // 
+            // linkLabel1
+            // 
+            this.linkLabel1.AutoSize = true;
+            this.linkLabel1.Location = new System.Drawing.Point(3, 371);
+            this.linkLabel1.Name = "linkLabel1";
+            this.linkLabel1.Size = new System.Drawing.Size(105, 13);
+            this.linkLabel1.TabIndex = 7;
+            this.linkLabel1.TabStop = true;
+            this.linkLabel1.Text = "Total uing memory: 0";
+            // 
+            // TagFiles
+            // 
+            this.TagFiles.Cue = "Edit tags";
+            this.TagFiles.Location = new System.Drawing.Point(6, 33);
+            this.TagFiles.Multiline = true;
+            this.TagFiles.Name = "TagFiles";
+            this.TagFiles.ReadOnly = true;
+            this.TagFiles.Size = new System.Drawing.Size(198, 277);
+            this.TagFiles.TabIndex = 4;
+            // 
+            // ResultPanel
+            // 
+            this.ResultPanel.AutoScroll = true;
+            this.ResultPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.ResultPanel.Location = new System.Drawing.Point(1, 30);
+            this.ResultPanel.Name = "ResultPanel";
+            this.ResultPanel.Size = new System.Drawing.Size(752, 381);
+            this.ResultPanel.TabIndex = 47;
+            this.ResultPanel.TabStop = true;
+            // 
+            // KeyWordCatalog
+            // 
+            this.KeyWordCatalog.Cue = "Search";
+            this.KeyWordCatalog.Location = new System.Drawing.Point(6, 6);
+            this.KeyWordCatalog.Name = "KeyWordCatalog";
+            this.KeyWordCatalog.Size = new System.Drawing.Size(713, 20);
+            this.KeyWordCatalog.TabIndex = 4;
+            // 
+            // DebugBTN
+            // 
+            this.DebugBTN.Location = new System.Drawing.Point(722, 5);
+            this.DebugBTN.Name = "DebugBTN";
+            this.DebugBTN.Size = new System.Drawing.Size(26, 23);
+            this.DebugBTN.TabIndex = 12;
+            this.DebugBTN.Text = "🔍";
+            this.DebugBTN.UseVisualStyleBackColor = true;
+            this.DebugBTN.Click += new System.EventHandler(this.DebugBTN_Click);
+            // 
+            // imageList1
+            // 
+            this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
+            this.imageList1.ImageSize = new System.Drawing.Size(16, 16);
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
             // 
             // NewSource_way
             // 
-            this.NewSource_way.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.NewSource_way.Cue = "The path to the folder in which the scan occurs. Example C:\\My Folder";
             this.NewSource_way.Location = new System.Drawing.Point(11, 22);
             this.NewSource_way.Name = "NewSource_way";
             this.NewSource_way.Size = new System.Drawing.Size(742, 20);
-            this.NewSource_way.TabIndex = 44;
+            this.NewSource_way.TabIndex = 3;
             this.NewSource_way.TextChanged += new System.EventHandler(this.Source_way_TextChanged);
             // 
             // Magic_Copy
@@ -1019,21 +1236,22 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(978, 481);
+            this.Controls.Add(this.MultiScanPanel);
             this.Controls.Add(this.ModePanel2);
-            this.Controls.Add(this.NewSource_way);
             this.Controls.Add(this.InfoRichTextBox);
             this.Controls.Add(this.Language);
             this.Controls.Add(this.BTNinfo);
             this.Controls.Add(this.DefaultPanel);
             this.Controls.Add(this.AdvancedDeletePanel);
             this.Controls.Add(this.What);
-            this.Controls.Add(this.Progress);
-            this.Controls.Add(this.Source);
-            this.Controls.Add(this.FastMenu);
             this.Controls.Add(this.ProgramMod);
             this.Controls.Add(this.panel6);
             this.Controls.Add(this.ModePanel);
             this.Controls.Add(this.WayPanel);
+            this.Controls.Add(this.NewSource_way);
+            this.Controls.Add(this.Progress);
+            this.Controls.Add(this.Source);
+            this.Controls.Add(this.FastMenu);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.FastMenu;
             this.Name = "Magic_Copy";
@@ -1062,6 +1280,10 @@
             this.ModePanel2.PerformLayout();
             this.WayPanel.ResumeLayout(false);
             this.WayPanel.PerformLayout();
+            this.MultiScanPanel.ResumeLayout(false);
+            this.MultiScanPanel.PerformLayout();
+            this.panel5.ResumeLayout(false);
+            this.panel5.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1115,10 +1337,10 @@
         private System.Windows.Forms.Button Clone2;
         private System.Windows.Forms.Button BTNClear1;
         private System.Windows.Forms.Button BTNClear2;
-        private System.Windows.Forms.CheckBox DeleteAfterTest4;
-        private System.Windows.Forms.CheckBox DeleteAfterTest3;
-        private System.Windows.Forms.CheckBox DeleteAfterTest2;
-        private System.Windows.Forms.CheckBox DeleteAfterTest1;
+        private System.Windows.Forms.CheckBox DeleteModTumbler4;
+        private System.Windows.Forms.CheckBox DeleteModTumbler3;
+        private System.Windows.Forms.CheckBox DeleteModTumbler2;
+        private System.Windows.Forms.CheckBox DeleteModTumbler1;
         private System.Windows.Forms.CheckBox DeleteAfterTestDefault;
         private System.Windows.Forms.CheckBox Notifications;
         private System.Windows.Forms.MenuStrip FastMenu;
@@ -1146,6 +1368,25 @@
         private System.Windows.Forms.CheckBox DeleteCulling;
         private System.Windows.Forms.Panel WayPanel;
         private System.Windows.Forms.ToolStripMenuItem helpInfoToolStripMenuItem;
+        private System.Windows.Forms.Panel MultiScanPanel;
+        private System.Windows.Forms.ToolStripMenuItem ScanModePbtn;
+        private System.Windows.Forms.Panel panel5;
+        public System.Windows.Forms.Panel ResultPanel;
+        private System.Windows.Forms.Button ClearBTNimage;
+        private CueTextBox MegaLinkEdit;
+        private System.Windows.Forms.ToolStripMenuItem DebugMod;
+        private System.Windows.Forms.ImageList imageList1;
+        private System.Windows.Forms.LinkLabel linkLabel1;
+        private System.Windows.Forms.LinkLabel linkLabel2;
+        private CueTextBox UserLimit;
+        private System.Windows.Forms.Button SaveTags;
+        private CueTextBox KeyWordCatalog;
+        private System.Windows.Forms.Button DebugBTN;
+        private System.Windows.Forms.Button CancelTagsEdit;
+        private CueTextBox TagFiles;
+        private System.Windows.Forms.Button UnlockTagEdit;
+        private System.Windows.Forms.ToolStripMenuItem AppearanceCatalogeSelect;
+        private System.Windows.Forms.ToolStripMenuItem debugClickToolStripMenuItem;
     }
 }
 
